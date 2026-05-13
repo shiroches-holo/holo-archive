@@ -22,8 +22,12 @@
 
   th {
     background: #e3e8ef;
+    padding: 6px;
+    font-weight: bold;
   }
-
+  td {
+    padding: 6px;
+  }
   thead th {
     position: sticky;
     top: 0;
@@ -42,15 +46,17 @@
   #controls {
     position: sticky;
     top: 0;
-    background: #f5f7fa;
-    padding: 10px;
     z-index: 10;
-    border-bottom: 1px solid #ccc;
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   }
 
   tr:hover {
     background: #f0f8ff;
   }
+  
 </style>
 
 </head>
@@ -138,7 +144,14 @@ function updateStats(filtered){
     <p>総動画：${total}本 / ${Math.floor(totalSec/3600)}時間</p>
     <p>視聴済：${watched}本 / ${Math.floor(watchedSec/3600)}時間</p>
     <p>視聴率：${total ? ((watched/total)*100).toFixed(1) : 0}%</p>
+    <p>表示中：${filtered.length}件</p>
   `;
+}
+
+function formatTotal(sec){
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  return `${h}時間${m}分`;
 }
 
 // ✅ 描画
@@ -227,6 +240,10 @@ fetch(url)
     document.getElementById("filterStatus").addEventListener("change", render);
     document.getElementById("sort").addEventListener("change", render);
     document.getElementById("playlistFilter").addEventListener("change", render);
+    document.getElementById("sort").addEventListener("change", ()=>{
+      localStorage.setItem("sort", document.getElementById("sort").value);
+      render();
+    });
 
     document.getElementById("checkAll").addEventListener("click", ()=>{
       document.querySelectorAll("#list tbody tr").forEach(tr=>{
