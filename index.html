@@ -25,6 +25,28 @@
 <script>
 const url = "https://script.google.com/macros/s/AKfycbzLNPVR28em6L534Lk6FB9yKSJmAtkhJKqX6aFwREIgTtsKyCNPAcIZfeUoTsuUpKrkPA/exec";
 
+// 日付フォーマット
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
+
+  const y = d.getFullYear();
+  const m = d.getMonth() + 1;
+  const day = d.getDate();
+  const h = d.getHours();
+  const min = d.getMinutes();
+
+  return `${y}/${m}/${day} ${h}時${min.toString().padStart(2, '0')}分`;
+}
+
+// 再生時間フォーマット
+function formatDuration(seconds) {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+
+  return `${h}時間${m}分${s}秒`;
+}
+
 fetch(url)
   .then(res => res.json())
   .then(data => {
@@ -36,11 +58,11 @@ fetch(url)
       const tr = document.createElement("tr");
 
       tr.innerHTML = `
-        <td>${item.date}</td>
-        <td>${item.title}</td>
+        <td>${formatDate(item.date)}</td>
+        <td><a href="${link}" target</td>
         <td>${item.playlist}</td>
-        <td>${item.duration}</td>
-        <td><a href="${link}" target `;
+        <td>${formatDuration(item.seconds)}</td>
+      `;
 
       tbody.appendChild(tr);
     });
