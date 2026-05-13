@@ -12,42 +12,45 @@
   <table border="1" id="list">
     <thead>
       <tr>
-        <th>日付</th>
+        <th>公開日</th>
         <th>タイトル</th>
-        <th>URL</th>
+        <th>再生リスト</th>
+        <th>時間</th>
+        <th>リンク</th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
 
 <script>
-const url = "https://docs.google.com/spreadsheets/d/1SAclNEE_Grq8gFozc8evWujZQ_r9L5S0Mw5YUxrPP-E/gviz/tq?tqx=out:csv";
+const url = "https://docs.google.com/spreadsheets/d/1SAclNEE_Grq8gFozc8evWujZQ_r9L5S0Mw5YUxrPP-E/gviz/tq?tqx=out:csv&sheet=ライブ配信";
 
 fetch(url)
-  .then(response => response.text())
+  .then(res => res.text())
   .then(data => {
-    const rows = data.split("\n").slice(1); // 1行目はヘッダー
-
+    const rows = data.split("\n").slice(1);
     const tbody = document.querySelector("#list tbody");
 
     rows.forEach(row => {
       const cols = row.split(",");
 
-      if (cols.length > 2) {
-        const tr = document.createElement("tr");
-
-        const date = cols[0];
+      if (cols.length >= 6) {
+        const videoId = cols[0];
         const title = cols[1];
-        const videoId = cols[2];
+        const date = cols[2];
+        const duration = cols[4];
+        const playlist = cols[5];
 
         const link = "https://www.youtube.com/watch?v=" + videoId;
+
+        const tr = document.createElement("tr");
 
         tr.innerHTML = `
           <td>${date}</td>
           <td>${title}</td>
-          <td><a href="${link}" target   `;
-
-        tbody.appendChild(tr);
+          <td>${playlist}</td>
+          <td>${duration}</td>
+          <td><a href="${link}" target="_blank       tbody.appendChild(tr);
       }
     });
   });
