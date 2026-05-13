@@ -213,7 +213,6 @@ fetch(url)
   .then(json=>{
     data = json;
 
-    // 再生リスト生成
     const set = new Set(data.map(x=>x.playlist));
     const sel = document.getElementById("playlistFilter");
 
@@ -224,26 +223,35 @@ fetch(url)
       sel.appendChild(opt);
     });
 
+    // ✅ 最初表示
     render();
 
+    // ✅ イベント全部ここに入れる
     document.getElementById("search").addEventListener("input", render);
     document.getElementById("filterStatus").addEventListener("change", render);
     document.getElementById("sort").addEventListener("change", render);
     document.getElementById("playlistFilter").addEventListener("change", render);
+
     document.getElementById("checkAll").addEventListener("click", ()=>{
-    });
-    render();
-    });
-    
-    document.getElementById("checkAll").addEventListener("click", ()=>{
-    document.querySelectorAll("#list tbody tr").forEach(tr=>{
-      const id = tr.dataset.id;
+      document.querySelectorAll("#list tbody tr").forEach(tr=>{
+        const id = tr.dataset.id;
         if(id){
-        localStorage.setItem(id, true);
+          localStorage.setItem(id, true);
         }
+      });
+      render();
     });
-    render();
+
+    document.getElementById("uncheckAll").addEventListener("click", ()=>{
+      document.querySelectorAll("#list tbody tr").forEach(tr=>{
+        const id = tr.dataset.id;
+        if(id){
+          localStorage.setItem(id, false);
+        }
+      });
+      render();
     });
+
   });
 </script>
 
