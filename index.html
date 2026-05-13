@@ -46,8 +46,6 @@
     padding: 10px;
     z-index: 10;
     border-bottom: 1px solid #ccc;
-    <button id="checkAll">表示を全部✔</button>
-    <button id="uncheckAll">表示を全部解除</button>
   }
   tr:hover {
     background: #f0f8ff;
@@ -85,7 +83,9 @@
     <select id="playlistFilter">
       <option value="all">全再生リスト</option>
     </select>
-    
+  
+    <button id="checkAll">表示を全部✔</button>
+    <button id="uncheckAll">表示を全部解除</button>
   </div>
   
   <p>配信一覧</p>
@@ -150,29 +150,40 @@ function render(){
   if(sort==="short") filtered.sort((a,b)=>a.seconds-b.seconds);
 
   filtered.forEach(item=>{
-    const tr=document.createElement("tr");
-    const checked = localStorage.getItem(item.videoId)==="true";
+  const tr=document.createElement("tr");
 
-    tr.innerHTML = `
-      <td>${formatDate(item.date)}</td>
-      <td><a href="https://www.youtube.com/watch?v=${item.videoId}" target="_blank">${item.title}</a></td>
-      <td class="time-cell">${formatDuration(item.seconds)}</td>
-      <td class="check-cell">
-        <input type="checkbox" ${checked ? "checked":""}>
-      </td>
-      <td>${item.playlist}</td>
-    `;
+  // ✅ これ追加
+  tr.dataset.id = item.videoId;
 
-    const cb = tr.querySelector("input");
-    cb.addEventListener("change", ()=>{
-      localStorage.setItem(item.videoId, cb.checked);
-      updateStats();
-      render();
-    });
+  const checked = localStorage.getItem(item.videoId)==="true";
 
-    tbody.appendChild(tr);
+  tr.innerHTML = `
+    <td>${formatDate(item.date)}</td>
+    <td><a href="https://www.youtube.com/watch?v=${item.videoId}" target="_blank">${item.title}</a></td>
+    <td class="time-cell">${formatDuration(item.seconds)}</td>
+    <td class="check-cell">
+      <input type="checkbox" ${checked ? "checked":""}>
+    </td>
+    <td>${item.playlist}</td>
+  `;
+
+  // ✅ 色付け
+  if(checked){
+    tr.style.background = "#e6ffe6";
+  }
+
+  const cb = tr.querySelector("input");
+
+  cb.addEventListener("change", ()=>{
+    localStorage.setItem(item.videoId, cb.checked);
+    render();
   });
-}
+
+  tbody.appendChild(tr);
+});
+
+// ✅ これ追加（重要）
+updateStats(filtered);
 
 // ✅ stats
 function updateStats(filtered){
@@ -227,17 +238,13 @@ fetch(url)
     render();
     });
     
-    document.getElementById("uncheckAll").addEventListener("click", ()=>{
-      document.querySelectorAll("#list tbody input").forEach(cb=>{
-        cb.checked = false;
-        localStorage.setItem(cb.closest("tr").dataset.id, false);
+    document.getElementById("checkAll").addEventListener("click", ()=>{
+    document.querySelectorAll("#list tbody tr").forEach(tr=>{
+      const id = tr.dataset.id;
+      localStorage.setItem(id, true);
     });
     render();
     });
-    if(checked){
-      tr.style.background = "#e6ffe6";
-    }
-    updateStats(filtered);
   });
 </script>
 
