@@ -91,6 +91,10 @@
 
   <button id="checkAll">表示を全部✔</button>
   <button id="uncheckAll">表示を全部解除</button>
+
+  <button id="toTop">🔼</button>
+  <button id="toBottom">🔽</button>
+
 </div>
 
 <p>配信一覧</p>
@@ -263,6 +267,19 @@ fetch(url)
     document.getElementById("filterStatus").addEventListener("change", render);
     document.getElementById("sort").addEventListener("change", render);
     document.getElementById("playlistFilter").addEventListener("change", render);
+    document.getElementById("toTop").addEventListener("click", ()=>{
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+    
+    document.getElementById("toBottom").addEventListener("click", ()=>{
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+      });
+    });
     document.getElementById("sort").addEventListener("change", ()=>{
       localStorage.setItem("sort", document.getElementById("sort").value);
       render();
