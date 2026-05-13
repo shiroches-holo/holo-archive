@@ -47,6 +47,7 @@
     z-index: 10;
     border-bottom: 1px solid #ccc;
   }
+
   tr:hover {
     background: #f0f8ff;
   }
@@ -54,65 +55,63 @@
 
 </head>
 <body>
-  <h1>博衣こより🧪 配信アーカイブ</h1>
 
-  <div id="stats">
-    <p>総動画：0本 / 0時間</p>
-    <p>視聴済：0本 / 0時間</p>
-    <p>視聴率：0%</p>
+<h1>博衣こより🧪 配信アーカイブ</h1>
 
-  </div>
+<div id="stats"></div>
 
-  <div id="controls" style="margin:10px 0;">
-    <input type="text" id="search" placeholder="タイトル検索">
-  
-    <select id="filterStatus">
-      <option value="all">すべて</option>
-      <option value="watched">視聴済み</option>
-      <option value="unwatched">未視聴</option>
-    </select>
-  
-    <select id="sort">
-      <option value="new">公開日（新→旧）</option>
-      <option value="old">公開日（旧→新）</option>
-      <option value="title">タイトル順</option>
-      <option value="long">時間（長い順）</option>
-      <option value="short">時間（短い順）</option>
-    </select>
-  
-    <select id="playlistFilter">
-      <option value="all">全再生リスト</option>
-    </select>
-  
-    <button id="checkAll">表示を全部✔</button>
-    <button id="uncheckAll">表示を全部解除</button>
-  </div>
-  
-  <p>配信一覧</p>
+<div id="controls">
+  <input type="text" id="search" placeholder="タイトル検索">
 
-  <table border="1" id="list">
-    <thead>
-      <tr>
-        <th>公開日</th>
-        <th>タイトル</th>
-        <th>時間</th>
-        <th>視聴済み</th>
-        <th>再生リスト</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <select id="filterStatus">
+    <option value="all">すべて</option>
+    <option value="watched">視聴済み</option>
+    <option value="unwatched">未視聴</option>
+  </select>
+
+  <select id="sort">
+    <option value="new">公開日（新→旧）</option>
+    <option value="old">公開日（旧→新）</option>
+    <option value="title">タイトル順</option>
+    <option value="long">時間（長い順）</option>
+    <option value="short">時間（短い順）</option>
+  </select>
+
+  <select id="playlistFilter">
+    <option value="all">全再生リスト</option>
+  </select>
+
+  <button id="checkAll">表示を全部✔</button>
+  <button id="uncheckAll">表示を全部解除</button>
+</div>
+
+<p>配信一覧</p>
+
+<table id="list">
+  <thead>
+    <tr>
+      <th>公開日</th>
+      <th>タイトル</th>
+      <th>時間</th>
+      <th>視聴済み</th>
+      <th>再生リスト</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
 
 <script>
 const url = "https://script.google.com/macros/s/AKfycbzLNPVR28em6L534Lk6FB9yKSJmAtkhJKqX6aFwREIgTtsKyCNPAcIZfeUoTsuUpKrkPA/exec";
 
 let data = [];
 
+// 日付
 function formatDate(d){
   const date = new Date(d);
   return `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()} ${date.getHours()}:${date.getMinutes().toString().padStart(2,'0')}`;
 }
 
+// 時間
 function formatDuration(sec){
   const h=Math.floor(sec/3600);
   const m=Math.floor((sec%3600)/60);
@@ -120,7 +119,29 @@ function formatDuration(sec){
   return (h?`${h}時間`:"")+(m?`${m}分`:"")+(s?`${s}秒`:"");
 }
 
-// ✅ 描画関数
+// ✅ 統計
+function updateStats(filtered){
+  let total = filtered.length;
+  let watched = 0;
+  let totalSec=0;
+  let watchedSec=0;
+
+  filtered.forEach(x=>{
+    totalSec += x.seconds;
+    if(localStorage.getItem(x.videoId)==="true"){
+      watched++;
+      watchedSec += x.seconds;
+    }
+  });
+
+  document.getElementById("stats").innerHTML = `
+    <p>総動画：${total}本 / ${Math.floor(totalSec/3600)}時間</p>
+    <p>視聴済：${watched}本 / ${Math.floor(watchedSec/3600)}時間</p>
+    <p>視聴率：${total ? ((watched/total)*100).toFixed(1) : 0}%</p>
+  `;
+}
+
+// ✅ 描画
 function render(){
   const tbody = document.querySelector("#list tbody");
   tbody.innerHTML = "";
@@ -150,61 +171,36 @@ function render(){
   if(sort==="short") filtered.sort((a,b)=>a.seconds-b.seconds);
 
   filtered.forEach(item=>{
-  const tr=document.createElement("tr");
+    const tr=document.createElement("tr");
+    tr.dataset.id = item.videoId;
 
-  // ✅ これ追加
-  tr.dataset.id = item.videoId;
+    const checked = localStorage.getItem(item.videoId)==="true";
 
-  const checked = localStorage.getItem(item.videoId)==="true";
+    tr.innerHTML = `
+      <td>${formatDate(item.date)}</td>
+      <td><a href="https://www.youtubeh?v=${item.videoId}${item.title}</a></td>
+      <td class="time-cell">${formatDuration(item.seconds)}</td>
+      <td class="check-cell">
+        <input type="checkbox" ${checked ? "checked":""}>
+      </td>
+      <td>${item.playlist}</td>
+    `;
 
-  tr.innerHTML = `
-    <td>${formatDate(item.date)}</td>
-    <td><a href="https://www.youtube.com/watch?v=${item.videoId}" target="_blank">${item.title}</a></td>
-    <td class="time-cell">${formatDuration(item.seconds)}</td>
-    <td class="check-cell">
-      <input type="checkbox" ${checked ? "checked":""}>
-    </td>
-    <td>${item.playlist}</td>
-  `;
-
-  // ✅ 色付け
-  if(checked){
-    tr.style.background = "#e6ffe6";
-  }
-
-  const cb = tr.querySelector("input");
-
-  cb.addEventListener("change", ()=>{
-    localStorage.setItem(item.videoId, cb.checked);
-    render();
-  });
-
-  tbody.appendChild(tr);
-});
-
-// ✅ これ追加（重要）
-updateStats(filtered);
-
-// ✅ stats
-function updateStats(filtered){
-  let total = filtered.length;
-  let watched = 0;
-  let totalSec=0;
-  let watchedSec=0;
-
-  filtered.forEach(x=>{
-    totalSec += x.seconds;
-    if(localStorage.getItem(x.videoId)==="true"){
-      watched++;
-      watchedSec += x.seconds;
+    if(checked){
+      tr.style.background = "#e6ffe6";
     }
+
+    const cb = tr.querySelector("input");
+
+    cb.addEventListener("change", ()=>{
+      localStorage.setItem(item.videoId, cb.checked);
+      render();
+    });
+
+    tbody.appendChild(tr);
   });
 
-  document.getElementById("stats").innerHTML = `
-    <p>総動画：${total}本 / ${Math.floor(totalSec/3600)}時間</p>
-    <p>視聴済：${watched}本 / ${Math.floor(watchedSec/3600)}時間</p>
-    <p>視聴率：${total ? ((watched/total)*100).toFixed(1) : 0}%</p>
-  `;
+  updateStats(filtered);
 }
 
 // ✅ 初期読み込み
@@ -213,6 +209,7 @@ fetch(url)
   .then(json=>{
     data = json;
 
+    // 再生リスト生成
     const set = new Set(data.map(x=>x.playlist));
     const sel = document.getElementById("playlistFilter");
 
@@ -223,10 +220,9 @@ fetch(url)
       sel.appendChild(opt);
     });
 
-    // ✅ 最初表示
     render();
 
-    // ✅ イベント全部ここに入れる
+    // イベント
     document.getElementById("search").addEventListener("input", render);
     document.getElementById("filterStatus").addEventListener("change", render);
     document.getElementById("sort").addEventListener("change", render);
@@ -241,6 +237,17 @@ fetch(url)
       });
       render();
     });
+
+    document.getElementById("uncheckAll").addEventListener("click", ()=>{
+      document.querySelectorAll("#list tbody tr").forEach(tr=>{
+        const id = tr.dataset.id;
+        if(id){
+          localStorage.setItem(id, false);
+        }
+      });
+      render();
+    });
+
   });
 </script>
 
