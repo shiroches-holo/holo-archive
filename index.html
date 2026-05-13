@@ -20,14 +20,15 @@
   }
 </style>
 </head>
-<div id="stats">
-  <p>総動画：0本 / 0時間</p>
-  <p>視聴済：0本 / 0時間</p>
-  <p>視聴率：0%</p>
-</div>
 <body>
   <h1>博衣こより 配信アーカイブ</h1>
 
+  <div id="stats">
+    <p>総動画：0本 / 0時間</p>
+    <p>視聴済：0本 / 0時間</p>
+    <p>視聴率：0%</p>
+  </div>
+  
   <p>配信一覧</p>
 
   <table border="1" id="list">
@@ -46,90 +47,94 @@
 <script>
 const url = "https://script.google.com/macros/s/AKfycbzLNPVR28em6L534Lk6FB9yKSJmAtkhJKqX6aFwREIgTtsKyCNPAcIZfeUoTsuUpKrkPA/exec";
 
-// 日付
+let totalCount, totalSeconds;
+let watchedCount, watchedSeconds;
+
 function formatDate(dateStr) {
   const d = new Date(dateStr);
   return `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${d.getMinutes().toString().padStart(2,'0')}`;
 }
 
-// 時間
-function formatDuration(seconds) {
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = seconds % 60;
+function formatDuration(sec) {
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  const s = sec % 60;
 
-  let result = "";
-  if (h > 0) result += `${h}時間`;
-  if (m > 0) result += `${m}分`;
-  if (s > 0) result += `${s}秒`;
-
-  return result || "0秒";
+  let r = "";
+  if (h) r += `${h}時間`;
+  if (m) r += `${m}分`;
+  if (s) r += `${s}秒`;
+  return r || "0秒";
 }
 
-// 合計時間
-function formatTotal(seconds) {
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  return `${h}時間${m}分`;
+function formatTotal(sec){
+  return `${Math.floor(sec/3600)}時間${Math.floor((sec%3600)/60)}分`;
+}
+
+// 👉 stats更新関数（超重要）
+function updateStats(data){
+  watchedCount = 0;
+  watchedSeconds = 0;
+
+  data.forEach(item=>{
+    if(localStorage.getItem(item.videoId) === "true"){
+      watchedCount++;
+      watchedSeconds += item.seconds;
+    }
+  });
+
+  const percent = totalCount
+    ? ((watchedCount/totalCount)*100).toFixed(1)
+    : 0;
+
+  document.getElementById("stats").innerHTML = `
+    <p>総動画：${totalCount}本 / ${formatTotal(totalSeconds)}</p>
+    <p>視聴済：${watchedCount}本 / ${formatTotal(watchedSeconds)}</p>
+    <p>視聴率：${percent}%</p>
+  `;
 }
 
 fetch(url)
-  .then(res => res.json())
-  .then(data => {
+  .then(r=>r.json())
+  .then(data=>{
     const tbody = document.querySelector("#list tbody");
 
-    let totalCount = data.length;
-    let totalSeconds = 0;
+    totalCount = data.length;
+    totalSeconds = data.reduce((sum,x)=>sum+x.seconds,0);
 
-    let watchedCount = 0;
-    let watchedSeconds = 0;
-
-    data.forEach(item => {
-      totalSeconds += item.seconds;
-
-      const link = "https://www.youtube.com/watch?v=" + item.videoId;
-
+    data.forEach(item=>{
       const tr = document.createElement("tr");
+
+      const link = `https://www.youtube.com/watch?v=${item.videoId}`;
 
       tr.innerHTML = `
         <td>${formatDate(item.date)}</td>
-        <td><a href="${link}" target="_blank      <td class="time-cell">${formatDuration(item.seconds)}</td>
+        <td><a href="${link}" target</td>
+        <td class="time-cell">${formatDuration(item.seconds)}</td>
         <td class="check-cell">
           <input type="checkbox">
         </td>
         <td>${item.playlist}</td>
       `;
 
-      const checkbox = tr.querySelector("input");
-      const key = item.videoId;
+      const cb = tr.querySelector("input");
 
       // 初期状態
-      if (localStorage.getItem(key) === "true") {
-        checkbox.checked = true;
-        watchedCount++;
-        watchedSeconds += item.seconds;
+      if(localStorage.getItem(item.videoId) === "true"){
+        cb.checked = true;
       }
 
-      // 変更時
-      checkbox.addEventListener("change", () => {
-        localStorage.setItem(key, checkbox.checked);
-        location.reload();
+      // ✅ reloadやめてリアルタイム更新
+      cb.addEventListener("change", ()=>{
+        localStorage.setItem(item.videoId, cb.checked);
+        updateStats(data);
       });
 
       tbody.appendChild(tr);
     });
 
-    // 視聴率
-    const percent = totalCount > 0
-      ? ((watchedCount / totalCount) * 100).toFixed(1)
-      : 0;
-
-    // 表示
-    document.getElementById("stats").innerHTML = `
-      <p>総動画：${totalCount}本 / ${formatTotal(totalSeconds)}</p>
-      <p>視聴済：${watchedCount}本 / ${formatTotal(watchedSeconds)}</p>
-      <p>視聴率：${percent}%</p>
-    `;
+    // 初回表示
+    updateStats(data);
   });
 </script>
 
