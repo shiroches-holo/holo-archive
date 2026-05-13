@@ -38,6 +38,20 @@
   .check-cell {
     text-align: center;
   }
+
+  #controls {
+    position: sticky;
+    top: 0;
+    background: #f5f7fa;
+    padding: 10px;
+    z-index: 10;
+    border-bottom: 1px solid #ccc;
+    <button id="checkAll">表示を全部✔</button>
+    <button id="uncheckAll">表示を全部解除</button>
+  }
+  tr:hover {
+    background: #f0f8ff;
+  }
 </style>
 
 </head>
@@ -161,13 +175,13 @@ function render(){
 }
 
 // ✅ stats
-function updateStats(){
-  let total = data.length;
+function updateStats(filtered){
+  let total = filtered.length;
   let watched = 0;
   let totalSec=0;
   let watchedSec=0;
 
-  data.forEach(x=>{
+  filtered.forEach(x=>{
     totalSec += x.seconds;
     if(localStorage.getItem(x.videoId)==="true"){
       watched++;
@@ -178,7 +192,7 @@ function updateStats(){
   document.getElementById("stats").innerHTML = `
     <p>総動画：${total}本 / ${Math.floor(totalSec/3600)}時間</p>
     <p>視聴済：${watched}本 / ${Math.floor(watchedSec/3600)}時間</p>
-    <p>視聴率：${((watched/total)*100).toFixed(1)}%</p>
+    <p>視聴率：${total ? ((watched/total)*100).toFixed(1) : 0}%</p>
   `;
 }
 
@@ -199,13 +213,31 @@ fetch(url)
       sel.appendChild(opt);
     });
 
-    updateStats();
     render();
 
     document.getElementById("search").addEventListener("input", render);
     document.getElementById("filterStatus").addEventListener("change", render);
     document.getElementById("sort").addEventListener("change", render);
     document.getElementById("playlistFilter").addEventListener("change", render);
+    document.getElementById("checkAll").addEventListener("click", ()=>{
+    document.querySelectorAll("#list tbody input").forEach(cb=>{
+      cb.checked = true;
+      localStorage.setItem(cb.closest("tr").dataset.id, true);
+    });
+    render();
+    });
+    
+    document.getElementById("uncheckAll").addEventListener("click", ()=>{
+      document.querySelectorAll("#list tbody input").forEach(cb=>{
+        cb.checked = false;
+        localStorage.setItem(cb.closest("tr").dataset.id, false);
+    });
+    render();
+    });
+    if(checked){
+      tr.style.background = "#e6ffe6";
+    }
+    updateStats(filtered);
   });
 </script>
 
