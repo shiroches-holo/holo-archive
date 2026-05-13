@@ -35,11 +35,11 @@ fetch(url)
       const cols = row.split(",");
 
       if (cols.length >= 6) {
-        const videoId = cols[0];
-        const title = cols[1];
-        const date = cols[2];
-        const duration = cols[4];
-        const playlist = cols[5];
+        const videoId = cols[0].replace(/"/g, '');
+        const title = cols[1].replace(/"/g, '');
+        const date = cols[2].replace(/"/g, '');
+        const duration = cols[4].replace(/"/g, '');
+        const playlist = cols[5].replace(/"/g, '');
 
         const link = "https://www.youtube.com/watch?v=" + videoId;
 
@@ -50,14 +50,10 @@ fetch(url)
           <td>${title}</td>
           <td>${playlist}</td>
           <td>${duration}</td>
-          <td>${link}見る</a></td>
-        `;
-
-        tbody.appendChild(tr);
+          <td><a href="${link}" target="_blank       tbody.appendChild(tr);
       }
     });
   });
 </script>
-
 </body>
 </html>
