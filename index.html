@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>こよちゃん配信一覧</title>
+
+  <style>
+  .time-cell {
+    text-align: right;
+    white-space: nowrap;
+  }
+  </style>
 </head>
 <body>
   <h1>博衣こより 配信アーカイブ</h1>
@@ -65,7 +72,10 @@ fetch(url)
       tr.innerHTML = `
         <td>${formatDate(item.date)}</td>
         <td><a href="${link}" target="_blank">${item.title}</a></td>
-        <td>${formatDuration(item.seconds)}</td>
+        <td class="time-cell">
+          ${formatDuration(item.seconds)}
+          <input type="checkbox">
+        </td>
         <td>${item.playlist}</td>
       `;
       
