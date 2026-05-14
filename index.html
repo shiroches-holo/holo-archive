@@ -201,6 +201,7 @@ function render(){
   tbody.innerHTML = "";
 
   const keyword = document.getElementById("search").value.toLowerCase();
+  const playlistKeyword = document.getElementById("playlistSearch").value.toLowerCase();
   const status = document.getElementById("filterStatus").value;
   const sort = document.getElementById("sort").value;
   //const playlist = document.getElementById("playlistFilter").value;
@@ -294,7 +295,6 @@ fetch(url)
     // 再生リスト生成
     const set = new Set(data.map(x=>x.playlist));    
     const area = document.getElementById("playlistFilterArea");
-    const playlistKeyword = document.getElementById("playlistSearch").value.toLowerCase();
     
     set.forEach(p=>{
       const label = document.createElement("label");
