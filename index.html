@@ -92,7 +92,14 @@
   <div id="playlistFilterArea"></div>
     <button id="playlistAll">全て✔</button>
     <button id="playlistClear">全て解除</button>
-  
+    
+    #playlistFilterArea {
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 5px;
+    }
+
   
   <input type="date" id="dateFrom">
   ～
@@ -245,13 +252,7 @@ function render(){
       <td><a href="https://www.youtube.com/watch?v=${item.videoId}" target="_blank">${item.title}</a></td>
       <td class="time-cell">${formatDuration(item.seconds)}</td>
       <td class="check-cell">
-        label.style.display = "block";
-        
-        max-height: 150px;
-        overflow-y: auto;
-        border: 1px solid #ccc;
-        padding: 5px;
-
+        <input type="checkbox" ${checked ? "checked":""}>
       </td>
       <td>${item.playlist}</td>
     `;
@@ -301,6 +302,7 @@ fetch(url)
     
     set.forEach(p=>{
       const label = document.createElement("label");
+      label.style.display = "block"
       
       label.innerHTML = `
         <input type="checkbox" value="${p}" checked>
