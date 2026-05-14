@@ -84,9 +84,15 @@
     <option value="short">時間（短い順）</option>
   </select>
 
+  <!--
   <select id="playlistFilter">
     <option value="all">全再生リスト</option>
   </select>
+  -->
+  <div id="playlistFilterArea"></div>
+    <button id="playlistAll">全て✔</button>
+    <button id="playlistClear">全て解除</button>
+  
   <input type="date" id="dateFrom">
   ～
   <input type="date" id="dateTo">
@@ -184,6 +190,7 @@ function render(){
   const playlist = document.getElementById("playlistFilter").value;
 
   let filtered = data.filter(item=>{
+    /*+
     if(!item.title.toLowerCase().includes(keyword)) return false;
 
     const watched = localStorage.getItem(item.videoId)==="true";
@@ -202,6 +209,17 @@ function render(){
     if(to && itemDate > new Date(to)) return false;
 
     return true;
+    */
+
+    // ✅ 選択されてるプレイリスト取得
+    const checkedPlaylists = Array.from(
+      document.querySelectorAll("#playlistFilterArea input:checked")
+    ).map(cb => cb.value);
+    
+    // ✅ 条件に追加
+    if(checkedPlaylists.length > 0 && !checkedPlaylists.includes(item.playlist)){
+      return false;
+    }
   });
 
   // 表示件数を100件に制限
@@ -261,6 +279,7 @@ fetch(url)
 
     // 再生リスト生成
     const set = new Set(data.map(x=>x.playlist));
+    /*
     const sel = document.getElementById("playlistFilter");
 
     set.forEach(p=>{
@@ -268,6 +287,20 @@ fetch(url)
       opt.value=p;
       opt.textContent=p;
       sel.appendChild(opt);
+    */
+    
+    const area = document.getElementById("playlistFilterArea");
+    
+    set.forEach(p=>{
+      const label = document.createElement("label");
+      
+      label.innerHTML = `
+        <input type="checkbox" value="${p}" checked>
+        ${p}
+      `;
+    
+    area.appendChild(label);
+
     });
 
     render();
