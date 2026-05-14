@@ -52,7 +52,9 @@
     padding: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     margin-bottom: 10px;
-
+    <input type="date" id="dateFrom">
+    ～
+    <input type="date" id="dateTo">
   }
 
   tr:hover {
@@ -191,6 +193,14 @@ function render(){
 
     if(playlist!=="all" && item.playlist!==playlist) return false;
 
+    const from = document.getElementById("dateFrom").value;
+    const to = document.getElementById("dateTo").value;
+  
+    const itemDate = new Date(item.date);
+  
+    if(from && itemDate < new Date(from)) return false;
+    if(to && itemDate > new Date(to)) return false;
+
     return true;
   });
 
@@ -267,6 +277,8 @@ fetch(url)
     document.getElementById("filterStatus").addEventListener("change", render);
     document.getElementById("sort").addEventListener("change", render);
     document.getElementById("playlistFilter").addEventListener("change", render);
+    document.getElementById("dateFrom").addEventListener("change", render);
+    document.getElementById("dateTo").addEventListener("change", render);
     document.getElementById("toTop").addEventListener("click", ()=>{
       window.scrollTo({
         top: 0,
