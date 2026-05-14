@@ -93,6 +93,7 @@
     <button id="playlistAll">全て✔</button>
     <button id="playlistClear">全て解除</button>
   
+  
   <input type="date" id="dateFrom">
   ～
   <input type="date" id="dateTo">
@@ -244,7 +245,13 @@ function render(){
       <td><a href="https://www.youtube.com/watch?v=${item.videoId}" target="_blank">${item.title}</a></td>
       <td class="time-cell">${formatDuration(item.seconds)}</td>
       <td class="check-cell">
-        <input type="checkbox" ${checked ? "checked":""}>
+        label.style.display = "block";
+        
+        max-height: 150px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        padding: 5px;
+
       </td>
       <td>${item.playlist}</td>
     `;
