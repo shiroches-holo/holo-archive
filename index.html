@@ -208,11 +208,13 @@ function render(){
 
   let filtered = data.filter(item => {
   
-    // 🔍 タイトル＋再生リスト検索
-    if(
-      !item.title.toLowerCase().includes(keyword) &&
-      !item.playlist.toLowerCase().includes(keyword)
-    ){
+    // 🔍 タイトル検索
+    if(!item.title.toLowerCase().includes(keyword)){
+      return false;
+    }
+
+    // 🔍 再生リスト検索
+    if(playlistKeyword && !item.playlist.toLowerCase().includes(playlistKeyword)){
       return false;
     }
   
@@ -268,7 +270,15 @@ function render(){
     }
 
     const cb = tr.querySelector("input");
-
+    
+    const from = document.getElementById("dateFrom").value;
+    const to = document.getElementById("dateTo").value;
+    
+    const itemDate = new Date(item.date);
+    
+    if(from && itemDate < new Date(from)) return false;
+    if(to && itemDate > new Date(to)) return false;
+    
     cb.addEventListener("change", ()=>{
       localStorage.setItem(item.videoId, cb.checked);
       render();
@@ -377,6 +387,7 @@ fetch(url)
     document.getElementById("resetAll").addEventListener("click", ()=>{
       // 検索
       document.getElementById("search").value = "";
+      document.getElementById("playlistSearch").value = "";
     
       // 状態
       document.getElementById("filterStatus").value = "all";
