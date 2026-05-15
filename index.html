@@ -11,17 +11,15 @@
   }
   */
   body {
-    background: linear-gradient(
-      to bottom,
-      #ffe4ec,
-      #fff0f5
-    );
+    background: #fff5f8; /* 少し薄くする */
   }
 
   table {
-    border-collapse: collapse;
     background: white;
-    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+  
+    box-shadow: 0 6px 16px rgba(255, 160, 180, 0.2);
   }
 
   th, td {
@@ -56,9 +54,9 @@
     top: 0;
     z-index: 10;
     background: white;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(255, 160, 180, 0.2);
     margin-bottom: 10px;
   }
   
@@ -95,7 +93,18 @@
     border-bottom: 2px solid #ff9fc1;
     padding: 10px 15px;
     margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05); /* ←これ追加 */
   }
+
+  #stats {
+  background: white;
+  border-radius: 10px;
+  padding: 12px;
+  width: fit-content;
+  margin-bottom: 10px;
+
+  box-shadow: 0 4px 10px rgba(255, 160, 180, 0.2);
+}
   
 </style>
 
