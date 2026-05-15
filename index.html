@@ -118,6 +118,15 @@
   <button id="toBottom">🔽</button>
 
   <button id="resetAll">条件リセット</button>
+
+  <details>
+    <summary>データ移行</summary>
+    <button id="exportBtn">エクスポート</button>
+    <input type="file" id="importFile">
+  </details>
+
+    <button onclick="window.open('README.html')">使い方</button>
+  </div>
   
 </div>
 
@@ -419,7 +428,7 @@ fetch(url)
       });
       render();
     });
-
+    
     document.getElementById("resetAll").addEventListener("click", ()=>{
       // 検索
       document.getElementById("search").value = "";
@@ -442,6 +451,29 @@ fetch(url)
     
       render();
     });
+    
+    /* --- データ移行 --- */
+    document.getElementById("exportBtn").onclick=()=>{
+      const obj={};
+      Object.keys(localStorage).forEach(k=>obj[k]=localStorage.getItem(k));
+    
+      const blob=new Blob([JSON.stringify(obj)],{type:"application/json"});
+      const a=document.createElement("a");
+      a.href=URL.createObjectURL(blob);
+      a.download="data.json";
+      a.click();
+    };
+    
+    document.getElementById("importFile").onchange=e=>{
+      const f=e.target.files[0];
+      const r=new FileReader();
+      r.onload=()=>{
+        const obj=JSON.parse(r.result);
+        Object.keys(obj).forEach(k=>localStorage.setItem(k,obj[k]));
+        render();
+      };
+      r.readAsText(f);
+    };
 
   });
 </script>
