@@ -118,6 +118,7 @@
   .top-area {
     display: flex;
     gap: 20px;
+    align-items: flex-start;
   }
   
   #stats {
@@ -126,6 +127,8 @@
   
   #controls {
     flex: 1;
+    position: sticky;
+    top: 0;
   }
   
 </style>
@@ -139,7 +142,51 @@
 
 <div class="top-area">
   <div id="stats"></div>
-  <div id="controls">...</div>
+
+  <div id="controls">
+    <div class="controls-left">
+
+      <input type="text" id="search" placeholder="タイトル検索">
+
+      <select id="filterStatus">
+        <option value="all">すべて</option>
+        <option value="watched">視聴済み</option>
+        <option value="unwatched">未視聴</option>
+      </select>
+
+      <select id="sort">
+        <option value="new">公開日（新→旧）</option>
+        <option value="old">公開日（旧→新）</option>
+        <option value="title">タイトル順</option>
+        <option value="long">時間（長い順）</option>
+        <option value="short">時間（短い順）</option>
+      </select>
+
+      <input type="date" id="dateFrom">
+      ～
+      <input type="date" id="dateTo">
+
+      <button id="checkAll">表示を全部✔</button>
+      <button id="uncheckAll">表示を全部解除</button>
+
+      <button id="toTop">🔼</button>
+      <button id="toBottom">🔽</button>
+
+      <button id="resetAll">条件リセット</button>
+
+    </div>
+
+    <div class="controls-right">
+      <details>
+        <summary>データ移行</summary>
+        <button id="exportBtn">エクスポート</button>
+        <button id="importBtn">インポート</button>
+        <input type="file" id="importFile" style="display:none">
+        <br>
+        <button onclick="window.open('README.html')">使い方</button>
+      </details>
+    </div>
+  </div>
 </div>
 
 <details id="playlistBox">
@@ -188,19 +235,7 @@
   
     <button id="resetAll">条件リセット</button>
   </div>
-  
-  <div class="controls-right">
-    <details>
-      <summary>データ移行</summary>
-      <button id="exportBtn">エクスポート</button>
-      <button id="importBtn">インポート</button>
-      <input type="file" id="importFile" style="display:none">
-      <input type="file" id="importFile" style="display:none">
-      <br>
-      <button onclick="window.open('README.html')">使い方</button>
-    </details>
-  </div>
- 
+   
 </div>
 
 <p>配信一覧</p>
