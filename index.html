@@ -322,6 +322,7 @@ document.head.appendChild(style);
 fetch(url)
   .then(r=>r.json())
   .then(json=>{
+    console.log(json); // ←ここ追加！！
     data = json;
 
     // 再生リスト生成
