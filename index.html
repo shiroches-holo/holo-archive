@@ -91,12 +91,16 @@
   header {
     background: linear-gradient(
       to right,
+      /*
       #ffe4ec,
       #fff0f5
-      /*
+      */
       135deg,
       #ffe4ec,
       #ffd6e5
+      /*
+      #ffc0d6,
+      #ffe4ec
       */
     );
   
@@ -214,6 +218,13 @@
     color: #666;
   }
 
+  .notice-sub {
+    font-size: 11px;
+    color: #888;
+    text-align: left;
+    margin-top: 2px;
+  }
+
   #loading {
     position: fixed;  /* ← これが超重要 */
     top: 0;
@@ -273,6 +284,11 @@
   <div class="header-inner">
     <h1>博衣こより🧪 アーカイブ視聴チェッカー</h1>
     <div class="notice">※非公式ファンメイドツールです</div>
+    <div class="notice-sub">     
+      ※本ツールはYouTubeのライブ一覧を元に作成されています  
+      そのため歌動画やShorts等が含まれる場合があります（メンバー限定は対象外です）
+
+    </div>
   </div>
 </header>
 
@@ -440,6 +456,7 @@ function updateStats(filtered){
     <div class="stat-box">
       <div class="label">動画時間</div>
       <div class="value">${formatTotal(totalSec)}</div>
+      <div class="sub">${formatDays(totalSec)}</div>
     </div>
 
     <div class="stat-box">
@@ -450,6 +467,7 @@ function updateStats(filtered){
     <div class="stat-box">
       <div class="label">視聴時間</div>
       <div class="value">${formatTotal(watchedSec)}</div>
+      <div class="sub">${formatDays(watchedSec)}</div>
     </div>
 
     <div class="stat-box ${extraClass}">
