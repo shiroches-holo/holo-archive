@@ -207,6 +207,38 @@
     font-size: 11px;
     color: #666;
   }
+
+  #loading {
+    position: fixed;  /* ← これが超重要 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    background: rgba(255,255,255,0.8);
+    z-index: 999;
+  
+    font-size: 18px;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 5px solid #ccc;
+    border-top: 5px solid #ff9fc1;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
   
 </style>
 
@@ -220,6 +252,11 @@
     <div class="notice">※非公式ファンメイドです</div>
   </div>
 </header>
+
+<div id="loading">
+  <div class="spinner"></div>
+  読み込み中...
+</div>
 
 <!-- ✅ stats 横並びエリア -->
 <div id="stats"></div>
@@ -293,11 +330,6 @@
   </thead>
   <tbody></tbody>
 </table>
-
-<div id="loading">
-  <div class="spinner"></div>
-  読み込み中...
-</div>
 
 </body>
 
@@ -375,12 +407,12 @@ function updateStats(filtered){
       <div class="value">${rate}%</div>
     </div>
 
-    /*
+    <!--
     <div class="stat-box">
       <div class="label">表示件数</div>
       <div class="value">${filtered.length}件</div>
     </div>
-    */
+    -->
   `;
 }
 
@@ -484,6 +516,7 @@ function render(){
 }
 
 /* document.getElementById("stats").textContent = "読み込み中..."; */
+/*
 document.getElementById("stats").innerHTML = `
   <div style="
     padding:20px;
@@ -502,6 +535,7 @@ document.getElementById("stats").innerHTML = `
     読み込み中...
   </div>
 `;
+*/
 
 const style = document.createElement("style");
 style.innerHTML = `
