@@ -208,16 +208,11 @@
     align-items: flex-end;
   }
   
-  .notice {
+  .notice,
+  .notice-sub 
+  {
     font-size: 11px;
     color: #666;
-  }
-
-  .notice-sub {
-    font-size: 11px;
-    color: #888;
-    text-align: left;
-    margin-top: 2px;
   }
 
   #loading {
@@ -278,7 +273,10 @@
 <header>
   <div class="header-inner">
     <h1>博衣こより🧪 アーカイブ視聴チェッカー</h1>
-    <div class="notice">※非公式ファンメイドツールです</div>
+  </div>
+
+  <div class="notice">
+    ※非公式ファンメイドツールです
   </div>
 
   <div class="notice-sub">
@@ -662,6 +660,7 @@ fetch(url)
     render();
 
     // イベント
+    document.getElementById("durationLimit").addEventListener("change", render);
     document.getElementById("search").addEventListener("input", render);
     document.getElementById("playlistSearch").addEventListener("input", ()=>{
       const keyword = document.getElementById("playlistSearch").value.toLowerCase();
