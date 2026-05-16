@@ -202,6 +202,12 @@
     color: #888;
   }
 
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
   .header-inner {
     display: flex;
     justify-content: space-between;
@@ -213,6 +219,10 @@
   {
     font-size: 11px;
     color: #666;
+  }
+  
+  .notice-area {
+    text-align: right;
   }
 
   #loading {
@@ -264,24 +274,40 @@
   .stat-box.completed {
     box-shadow: 0 0 16px rgba(212, 175, 55, 0.8);
   }
-  </style>
+
+  .list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .list-header p {
+    margin: 0;
+    font-weight: bold;
+  }
+
+  .data-transfer {
+    text-align: right;
+  }
+ 
+</style>
 
 </head>
 
 <body>
 
 <header>
-  <div class="header-inner">
+  <div class="header-top">
     <h1>博衣こより🧪 アーカイブ視聴チェッカー</h1>
-  </div>
 
-  <div class="notice">
-    ※非公式ファンメイドツールです
-  </div>
-
-  <div class="notice-sub">
-    ※本ツールはYouTubeライブ一覧を元に作成されています  
-    一部動画が混在します（メンバー限定除く）
+    <div class="notice-area">
+      <div class="notice">※非公式ファンメイドツールです</div>
+      <div class="notice-sub">
+        ※本ツールはYouTubeライブ一覧を元に作成されています
+        配信以外にオリ曲等も混在します（メンバー限定除く）
+      </div>
+    </div>
   </div>
 </header>
 
