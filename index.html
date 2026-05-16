@@ -808,6 +808,7 @@ fetch(url)
 
     // 条件リセット
     document.getElementById("resetAll").addEventListener("click", ()=>{
+      
       // 検索
       document.getElementById("search").value = "";
       document.getElementById("playlistSearch").value = "";
@@ -821,24 +822,25 @@ fetch(url)
       // 日付
       document.getElementById("dateFrom").value = "";
       document.getElementById("dateTo").value = "";
-
+    
       // 時間
       document.getElementById("durationLimit").value = "";
     
-      // 再生リスト表示中のみ全部ON
+      // ✅ 再生リスト表示を全部復活
       document.querySelectorAll("#playlistFilterArea label").forEach(label=>{
-        if(label.style.display === "none") return;
-      
-        const cb = label.querySelector("input");
+        label.style.display = "block";
+      });
+    
+      // ✅ 再生リスト全部チェックON
+      document.querySelectorAll("#playlistFilterArea input").forEach(cb=>{
         cb.checked = true;
       });
-
+    
       document.querySelector("#playlistBox summary").textContent =
         `再生リスト選択 (${set.size})`;
-      
+    
       render();
     });
-
     // スクロール
     document.getElementById("toTop").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
     document.getElementById("toBottom").onclick=()=>window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
