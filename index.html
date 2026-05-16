@@ -249,7 +249,7 @@
 <header>
   <div class="header-inner">
     <h1>博衣こより🧪 アーカイブ視聴チェッカー</h1>
-    <div class="notice">※非公式ファンメイドです</div>
+    <div class="notice">※非公式ファンメイドツールです</div>
   </div>
 </header>
 
@@ -369,6 +369,9 @@ function updateStats(filtered){
   let watched = 0;
   let totalSec = 0;
   let watchedSec = 0;
+  let color = "#ff9fc1";
+  if(rate > 50) color = "#ff6fa3";
+  if(rate > 80) color = "#ff3c7d";
 
   filtered.forEach(x=>{
     totalSec += x.durationSec;
@@ -407,7 +410,7 @@ function updateStats(filtered){
       <div class="value">${rate}%</div>
     </div>
 
-    <!--
+    <!-- 動画本数と同じなので不要
     <div class="stat-box">
       <div class="label">表示件数</div>
       <div class="value">${filtered.length}件</div>
