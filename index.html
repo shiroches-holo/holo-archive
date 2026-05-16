@@ -91,12 +91,12 @@
   header {
     background: linear-gradient(
       to bottom,
-      /*
       #ffe4ec,
       #fff0f5
-      */
+      /*
       #ffc0d6,
       #ffe4ec
+      */
     );
   
     border-bottom: 2px solid #ff9fc1;
@@ -290,7 +290,16 @@
   .data-transfer {
     text-align: right;
   }
- 
+
+  #message {
+    margin: 8px 0;
+    padding: 8px 12px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
 </style>
 
 </head>
@@ -305,13 +314,15 @@
 
   <!-- 説明行（右寄せ） -->
   <div class="notice-area">
-    <div class="notice">※非公式ファンメイドツールです</div>
+    <div class="notice">※非公式ファンメイドサイトです</div>
+    <!--
     <div class="notice-sub">
       ※本ツールはYouTubeライブ一覧を元に作成されています  
     </div>
     <div class="notice-sub">
       配信以外にオリ曲等も混在します（メンバー限定除く）
     </div>
+    -->
   </div>
 
 </header>
@@ -415,6 +426,8 @@
 </table>
 
 <div id="message" style="margin:5px 0; font-size:12px;"></div>
+
+<div id="message"></div>
   
 </body>
   
@@ -630,14 +643,16 @@ function render(){
 }
  
   function showMessage(text, color="green"){
-  const el = document.getElementById("message");
-  el.textContent = text;
-  el.style.color = color;
-
-  setTimeout(()=>{
-    el.textContent = "";
-  }, 3000);
-}
+    const el = document.getElementById("message");
+    el.textContent = text;
+    el.style.color = color;
+    el.style.display = "block";
+  
+    setTimeout(()=>{
+      el.textContent = "";
+      el.style.display = "none";
+    }, 3000);
+  }
 
 // -------------------- 初期読み込み --------------------
 
