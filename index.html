@@ -97,10 +97,6 @@
     );
   
     border-bottom: 2px solid #ff9fc1;
-    box-shadow: 0 4px 12px rgba(255, 150, 180, 0.25);
-  }
-  
-    border-bottom: 2px solid #ff9fc1;
     padding: 12px 16px;
     margin-bottom: 15px;
   
@@ -452,7 +448,7 @@
 
 <div class="list-header">
   
-  <div id="message" style="margin:5px 0; font-size:12px;"></div>
+  <div id="message"></div>
   
   <p>動画一覧</p>
   
@@ -693,16 +689,24 @@ function render(){
   updatePlaylistCount();
 }
  
-  function showMessage(text, color="green"){
+  function showMessage(text, type="success"){
     const el = document.getElementById("message");
+  
     el.textContent = text;
-    el.style.color = color;
-    el.style.display = "block";
+  
+    if(type === "error"){
+      el.style.border = "2px solid #ef4444";
+      el.style.color = "#ef4444";
+    } else {
+      el.style.border = "2px solid #10b981";
+      el.style.color = "#10b981";
+    }
+  
+    el.classList.add("show");
   
     setTimeout(()=>{
-      el.textContent = "";
-      el.style.display = "none";
-    }, 3000);
+      el.classList.remove("show");
+    }, 2000);
   }
 
 // -------------------- 初期読み込み --------------------
