@@ -486,6 +486,12 @@ function updateStats(filtered){
   `;
 }
 
+function formatTotal(sec){
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  return `${h}時間${m}分`;
+}
+
 // -------------------- 共通関数 --------------------
 
 // 再生リスト件数表示
@@ -579,6 +585,7 @@ function render(){
     tbody.appendChild(tr);
   });
 
+  updateStats(filtered);
   updatePlaylistCount();
 }
 
