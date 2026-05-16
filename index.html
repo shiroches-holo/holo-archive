@@ -298,17 +298,20 @@
 <body>
 
 <header>
-  <div class="header-top">
+  <!-- タイトル行 -->
+  <div class="header-title">
     <h1>博衣こより🧪 アーカイブ視聴チェッカー</h1>
+  </div>
 
-    <div class="notice-area">
-      <div class="notice">※非公式ファンメイドツールです</div>
-      <div class="notice-sub">
-        ※本ツールはYouTubeライブ一覧を元に作成されています
-        配信以外にオリ曲等も混在します（メンバー限定除く）
-      </div>
+  <!-- 説明行（右寄せ） -->
+  <div class="notice-area">
+    <div class="notice">※非公式ファンメイドツールです</div>
+    <div class="notice-sub">
+      ※本ツールはYouTubeライブ一覧を元に作成されています  
+      配信以外にオリ曲等も混在します（メンバー限定除く）
     </div>
   </div>
+
 </header>
 
 <div id="loading">
@@ -406,8 +409,9 @@
   <tbody></tbody>
 </table>
 
+<div id="message" style="margin:5px 0; font-size:12px;"></div>
+  
 </body>
-
   
 <script> // ------------------------------------------------------------------------------------------------------------------------------------------------
 const url = "https://script.google.com/macros/s/AKfycby35nCN7uhqkTvMhTmb52O33xHxrpHEYkjXl0h8sCv34gxUenTfXbrAwzCs86kb05AR0w/exec";
@@ -613,6 +617,16 @@ function render(){
   updateStats(filtered);
   updatePlaylistCount();
 }
+ 
+  function showMessage(text, color="green"){
+  const el = document.getElementById("message");
+  el.textContent = text;
+  el.style.color = color;
+
+  setTimeout(()=>{
+    el.textContent = "";
+  }, 3000);
+}
 
 // -------------------- 初期読み込み --------------------
 
@@ -749,6 +763,47 @@ fetch(url)
     document.getElementById("toBottom").onclick=()=>window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
 
     render();
+  });
+  
+    /* --- データ移行 --- */
+    document.getElementById("exportBtn").onclick=()=>{
+      const obj={};
+      Object.keys(localStorage).forEach(k=>obj[k]=localStorage.getItem(k));
+    
+      const blob=new Blob([JSON.stringify(obj)],{type:"application/json"});
+      const a=document.createElement("a");
+      a.href=URL.createObjectURL(blob);
+      a.download="data.json";
+      a.click();
+    };
+    
+    document.getElementById("importBtn").onclick = () => {
+  document.getElementById("importFile").click();
+};
+
+  document.getElementById("importFile").addEventListener("change", e => {
+    const file = e.target.files[0];
+    if(!file) return;
+  
+    const reader = new FileReader();
+  
+    reader.onload = ev => {
+      try {
+        const obj = JSON.parse(ev.target.result);
+  
+        Object.keys(obj).forEach(k=>{
+          localStorage.setItem(k, obj[k]);
+        });
+  
+        showMessage("✅ インポート成功！");
+        render();
+  
+      } catch(err){
+        showMessage("❌ インポート失敗（形式エラー）", "red");
+      }
+    };
+  
+    reader.readAsText(file);
   });
 </script>
 </body>
