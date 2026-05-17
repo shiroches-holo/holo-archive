@@ -215,6 +215,7 @@
   }
   
   #playlistFilterArea {
+    ont-size:18
     max-height: 150px;
     overflow-y: auto;
     border: 1px solid #ccc;
@@ -307,6 +308,7 @@
     /* 5番目（達成率）横幅2 */
     .stat-box:nth-child(5) {
       grid-column: span 2;
+      text-align: center;
     }
   
     /* ---------- コントロール（2列化） ---------- */
@@ -346,6 +348,20 @@
       text-align: center;
       line-height: 40px;
     }
+    
+    /* ✅ 2行目だけ4列 */
+    .range-group {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr auto 1fr;
+      gap: 6px;
+      align-items: center;
+    }
+  
+    .range-group span {
+      text-align: center;
+    }
+
   
     /* ---------- 入力UI ---------- */
     input, select, button {
@@ -447,9 +463,13 @@
       <option value="720">12時間以内</option>
     </select>
 
-    <input type="date" id="dateFrom">
-    <span>～</span>
-    <input type="date" id="dateTo">
+    <div class="range-group">
+      <select id="durationLimit">...</select>
+    
+      <input type="date" id="dateFrom">
+      <span>～</span>
+      <input type="date" id="dateTo">
+    </div>
 
     <div class="btn-group">
       <button id="checkAll">表示を全部☑</button>
