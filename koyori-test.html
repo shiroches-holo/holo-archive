@@ -32,6 +32,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .header-note-top {
+    margin-left: auto; /* ←これで右端固定 */
+  }
   
   /* ---------- テーブル ---------- */
   table {
@@ -95,6 +104,7 @@
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
+    margin-bottom: 15px;
   }
   
   .stat-box {
@@ -112,6 +122,12 @@
   
   .stat-box .label {
     font-size: 12px;
+  }
+
+  /* 達成率100%で豪華演出 */
+  .stat-box.completed {
+    box-shadow: 0 0 18px rgba(212, 175, 55, 0.9);
+    border: 2px solid #d4af37;
   }
   
   /* ---------- カード ---------- */
@@ -149,6 +165,13 @@
     background: #fafafa;
   }
   
+  .list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
   /* =========================================
      📱 スマホ専用スタイル（ここから）
   ========================================= */
@@ -164,12 +187,7 @@
       font-size: 22px;
     }
   
-    /* ---------- ヘッダー ---------- */
-    .header-row {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
+    /* ---------- ヘッダー ---------- */  
     h1 {
       font-size: 26px;
       white-space: normal; /* ← 改行OK */
