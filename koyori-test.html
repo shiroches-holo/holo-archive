@@ -4,71 +4,64 @@
   <title>博衣こより動画一覧</title>
 
 <style>
-  /*
-  body {
-    background: #f5f7fa;
-    font-family: sans-serif;
-  }
-  */
+  /* =========================================
+     ✅ PC共通スタイル（ベース）
+  ========================================= */
   
-  /* タイトル */
+  body {
+    background: #fff6f9;
+  }
+  
+  /* ---------- ヘッダー ---------- */
+  header {
+    background: linear-gradient(
+      to bottom,
+      #ffc0d6 0%,
+      #ffd6e5 40%,
+      #fff3f7 100%
+    );
+    border-bottom: 2px solid #ff9fc1;
+    padding: 12px 16px;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+  }
+  
   h1 {
     font-size: 22px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* ←はみ出し対策 */
+    text-overflow: ellipsis;
   }
   
-  body {
-    background: #fff6f9; /* 少し薄くする */
-  }
-
+  /* ---------- テーブル ---------- */
   table {
     background: white;
     border-radius: 10px;
     overflow: hidden;
-  
-    box-shadow: 0 6px 16px rgba(255, 160, 180, 0.2);
+    box-shadow: 0 6px 16px rgba(255,150,180,0.25);
   }
-
+  
   th, td {
     font-size: 15px;
     border: 1px solid black;
-  }
-  
-  #controls input,
-  #controls select,
-  #controls button {
-    font-size: 16px;
-  }
-  
-  .stat-box .value {
-    font-size: 22px;
-  }
-
-  th {
-    background: #e3e8ef;
-    padding: 6px;
-    font-weight: bold;
-  }
-  td {
     padding: 8px 10px;
   }
+  
   thead th {
     position: sticky;
     top: 0;
     background: #e3e8ef;
   }
-
+  
   .time-cell {
     text-align: right;
-    white-space: nowrap;
   }
-
+  
   .check-cell {
     text-align: center;
   }
-
+  
+  /* ---------- コントロール ---------- */
   #controls {
     position: sticky;
     top: 0;
@@ -77,29 +70,77 @@
     border-radius: 10px;
     padding: 12px;
     margin-bottom: 15px;
-    box-shadow: 0 4px 12px rgba(255, 160, 180, 0.2);
+    box-shadow: 0 4px 12px rgba(255,160,180,0.2);
+  
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  #controls input,
+  #controls select,
+  #controls button {
+    font-size: 16px;
   }
   
   .controls-left {
     flex: 1;
   }
-
+  
   .controls-right {
     text-align: right;
   }
   
-  .controls-right button {
-    margin-left: 6px;
+  /* ---------- stats ---------- */
+  #stats {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
   }
   
-  .controls-right details {
-    margin-top: 4px;
+  .stat-box {
+    background: white;
+    border-radius: 12px;
+    padding: 12px 16px;
+    min-width: 140px;
+    box-shadow: 0 4px 10px rgba(255,150,180,0.2);
   }
-
+  
+  .stat-box .value {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .stat-box .label {
+    font-size: 12px;
+  }
+  
+  /* ---------- カード ---------- */
+  .card {
+    background: white;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    position: relative;
+  }
+  
+  .card .title {
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+  
+  /* チェック位置 */
+  .card .check-area {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+  }
+  
+  /* ---------- その他 ---------- */
   tr:hover {
     background: #ffe4ec;
   }
-
+  
   #playlistFilterArea {
     max-height: 150px;
     overflow-y: auto;
@@ -108,414 +149,106 @@
     background: #fafafa;
   }
   
-  header {
-    background: linear-gradient(
-      to bottom,
-      #ffc0d6 0%,
-      #ffd6e5 40%,
-      #fff3f7 100%
-    );
+  /* =========================================
+     📱 スマホ専用スタイル（ここから）
+  ========================================= */
   
-    border-bottom: 2px solid #ff9fc1;
-    padding: 12px 16px;
-    margin-bottom: 15px;
-  
-    box-shadow: 0 3px 8px rgba(0,0,0,0.06);
-  }
-
-  /* 縦並び
-  #stats {
-    background: white;
-    border-radius: 10px;
-    padding: 12px;
-    width: fit-content;
-    margin-bottom: 10px;
-  
-    box-shadow: 0 4px 10px rgba(255, 160, 180, 0.2);
-  }
-  */
-
-  /* 横並び */
-  #stats {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-  }
-
-  /* スマホ表示 */
   @media (max-width: 1000px) {
-    
-    h1 {
-        font-size: 40px;
-      }
-    
-      .card .title {
-        font-size: 30px;
-        line-height: 1.5;
-      }
-
+  
+    /* ---------- レイアウト ---------- */
     body {
-        /*max-width: 520px; */
-        width: 100%;
-        margin: 0 auto;
-        padding: 0 18px;
-        box-sizing: border-box;
-      }
-      main, #controls, #stats, table {
-        width: 100%;
-      }
-    
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 12px;
+      box-sizing: border-box;
+      font-size: 22px;
+    }
+  
+    /* ---------- ヘッダー ---------- */
+    .header-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    h1 {
+      font-size: 26px;
+      white-space: normal; /* ← 改行OK */
+    }
+  
+    .header-note-top {
+      align-self: flex-end;
+      font-size: 14px;
+    }
+  
+    /* ---------- stats（2×3） ---------- */
     #stats {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }  
+      gap: 12px;
+    }
+  
     .stat-box {
-      min-width: auto;
       padding: 16px;
     }
-
+  
     .stat-box .value {
-      font-size: 26px;
+      font-size: 24px;
     }
   
-    .stat-box .label {
-      font-size: 13px;
-    }
-  
-  }
-
-  /* スマホ表示のときの達成率の表示大きく*/
-  @media (max-width: 1000px) {
-
+    /* 5番目（達成率）横幅2 */
     .stat-box:nth-child(5) {
       grid-column: span 2;
     }
   
-    .stat-box:nth-child(5) .value {
-      font-size: 26px;
-    }
-  
-  }
-
-  table {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-  
-    box-shadow: 0 6px 16px rgba(255, 150, 180, 0.25);
-  }
-
-  .top-area {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-  }
-  
-  #controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  #stats {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-  }
-  
-  .stat-box {
-    background: white;
-    border-radius: 12px;
-    padding: 12px 16px;
-    min-width: 140px;
-  
-    box-shadow: 0 4px 10px rgba(255, 150, 180, 0.2);
-
-    animation: fadeUp 0.4s ease;  /*ページを開いた時にカードがポンと表示される*/
-  }
-
-  /*アニメーション*/
-  @keyframes fadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .stat-box .label {
-    font-size: 12px;
-    color: #777;
-    margin-bottom: 4px;
-  }
-  
-  .stat-box .value {
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  .stat-box:nth-child(5) {
-    /*background: #ffe4ec;*/
-    background: white;
-  }
-
-  .stat-box:hover {
-    transform: translateY(-2px);
-    transition: 0.2s;
-  }
-
-  .stat-box .sub {
-    font-size: 11px;
-    color: #888;
-  }
-
-  .header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  
-  .header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .notice,
-  .notice-sub 
-  {
-    font-size: 11px;
-    color: #666;
-  }
-  
-  .notice-area {
-    text-align: right;
-  }
-
-  .header-row {
-    font-size: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  
-  .header-note-top {
-    font-size: 14px;
-    color: #666;
-  }
-  
-  .header-note-bottom {
-    text-align: right;
-    font-size: 14px;
-    color: #777;
-    margin-top: 2px;
-  }
-
-  #loading {
-    position: fixed;  /* ← これが超重要 */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  
-    background: rgba(255,255,255,0.8);
-    z-index: 999;
-  
-    font-size: 18px;
-  }
-  
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border: 5px solid #ccc;
-    border-top: 5px solid #ff9fc1;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 10px;
-  }
-  
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  .progress-bar {
-    width: 100%;
-    height: 6px;
-    background: #eee;
-    border-radius: 10px;
-    margin-top: 6px;
-  }
-  
-  .progress {
-    height: 100%;
-    border-radius: 10px;
-    transition: width 0.4s ease;
-  }
-
-  .stat-box.completed {
-    box-shadow: 0 0 16px rgba(212, 175, 55, 0.8);
-  }
-
-  .list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .list-header p {
-    margin: 0;
-    font-weight: bold;
-  }
-
-  .data-transfer {
-    text-align: right;
-  }
-
-  #message {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
-  
-    padding: 14px 22px;
-    font-size: 14px;
-    font-weight: bold;
-  
-    background: white;
-    border-radius: 12px;
-  
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  
-    opacity: 0;
-    pointer-events: none;
-  
-    transition: all 0.25s ease;
-  
-    z-index: 1000;
-  }
-  
-  /* 表示状態 */
-  #message.show {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-
-  @keyframes pop {
-    from {
-      transform: translate(-50%, -40%) scale(0.8);
-      opacity: 0;
-    }
-    to {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
-    }
-  }
-  
-  #message.show {
-    animation: pop 0.25s ease;
-  }
-
-  .card {
-    background: white;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 10px;
-  
-    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-  }
-
-  /* カードスタイル */
-  .card .title {
-    font-weight: bold;
-    margin-bottom: 6px;
-  }
-
-  @media (max-width: 1000px) {
-    input[type="checkbox"] {
-      transform: scale(1.5);
-  }
-
-  /* コントロール全体をスマホ最適化 */
-  @media (max-width: 1000px) {
+    /* ---------- コントロール（2列化） ---------- */
     #controls {
       flex-direction: column;
-      align-items: stretch;
+    }
+  
+    .controls-left {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
     }
-    .controls-left {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;      
-      margin-right: 8px;
-      margin-bottom: 4px;
-    }
-    .controls-right {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-    }  
-  }
-
-  /* スマホで入力系を大きく*/
-  @media (max-width: 1000px) {
-    input, select, button {
-      font-size: 16px;
-      padding: 10px;
-    }    
-    body {
-      font-size: 17px;
-    }
+  
     .controls-left > * {
-      width: calc(50% - 4px);
+      width: 100%;
     }
+  
+    /* ボタンは横いっぱい */
     #checkAll,
     #uncheckAll,
     #resetAll {
-      width: 100%;
-    }   
-    #viewMode {
-      width: 100%;
+      grid-column: span 2;
     }
-  }
-
-  /* トグルスイッチ */
-  .view-toggle {
-    display: flex;
-    gap: 10px;
-    font-size: 14px;
-  }
   
-  .view-toggle input {
-    margin-right: 4px;
-  }
-  
-  @media (max-width: 1000px) {
-    .view-toggle {
-      font-size: 14px;
-      justify-content: flex-end;
+    /* ---------- 入力UI ---------- */
+    input, select, button {
+      font-size: 16px;
+      padding: 10px;
     }
-  }
-
-  .card {
-    position: relative;
-  }
   
-  .card .check-area {
-    position: absolute;
-    right: 12px;
-    bottom: 12px;
+    /* ---------- カード ---------- */
+    .card {
+      font-size: 20px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+  
+    .card .title {
+      font-size: 24px;
+      line-height: 1.5;
+    }
+  
+    .card div {
+      margin-bottom: 6px;
+    }
+  
+    /* ---------- チェックボックス ---------- */
+    input[type="checkbox"] {
+      transform: scale(1.5);
+    }
+  
   }
   
 </style>
