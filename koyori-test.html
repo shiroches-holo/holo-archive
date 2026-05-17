@@ -760,7 +760,12 @@ function render(){
   
     tbody.appendChild(tr);
   });
+  
+  updateStats(filtered);
+  updatePlaylistCount();
+
 }
+  
 function showMessage(text, type="success"){
     const el = document.getElementById("message");
   
