@@ -215,7 +215,7 @@
   }
   
   #playlistFilterArea {
-    ont-size:18px
+    font-size:18px
     max-height: 150px;
     overflow-y: auto;
     border: 1px solid #ccc;
@@ -322,11 +322,21 @@
       gap: 10px;
       width: 100%;
     }
+
+    /* ✅ 2行目だけ4列 */
+    .range-group {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr auto 1fr;
+      gap: 6px;
+      align-items: center;
+    }
     
     /* ✅ ボタン専用レイアウト */
     .btn-group {
       grid-column: span 2;
       display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 8px;
     }
 
@@ -341,16 +351,7 @@
       text-align: center;
       line-height: 40px;
     }
-    
-    /* ✅ 2行目だけ4列 */
-    .range-group {
-      grid-column: span 2;
-      display: grid;
-      grid-template-columns: 1fr 1fr auto 1fr;
-      gap: 6px;
-      align-items: center;
-    }
-  
+      
     .range-group span {
       text-align: center;
     }
@@ -438,13 +439,9 @@
       <option value="long">時間（長い順）</option>
       <option value="short">時間（短い順）</option>
     </select>
-
-    <select id="durationLimit">
-      
-    </select>
-
-    <div class="range-group">    
-      <select id="durationLimit">...</select>      
+   
+    <div class="range-group">
+      <select id="durationLimit">
         <option value="">全時間</option>
         <option value="30">30分以内</option>
         <option value="60">1時間以内</option>
@@ -458,7 +455,9 @@
         <option value="540">9時間以内</option>
         <option value="600">10時間以内</option>
         <option value="660">11時間以内</option>
-        <option value="720">12時間以内</option>      
+        <option value="720">12時間以内</option>
+      </select>
+
       <input type="date" id="dateFrom">
       <span>～</span>
       <input type="date" id="dateTo">
