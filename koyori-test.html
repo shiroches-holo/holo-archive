@@ -454,6 +454,21 @@
       width: 100%;
     }
   }
+
+  /* トグルスイッチ */
+  .view-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+  }
+  
+  @media (max-width: 600px) {
+    .view-toggle {
+      font-size: 14px;
+      justify-content: flex-end;
+    }
+  }
   
 </style>
 
@@ -490,13 +505,6 @@
 
 <!-- ✅ controls は1個だけ -->
 <div id="controls">
-
-  <!-- PCとスマホでUI変更 -->
-  <select id="viewMode">
-    <option value="auto">自動</option>
-    <option value="table">テーブル</option>
-    <option value="card">カード</option>
-  </select>
   
   <div class="controls-left">
 
@@ -517,7 +525,7 @@
     </select>
 
     <select id="durationLimit">
-      <option value="">全て</option>
+      <option value="">全時間</option>
       <option value="30">30分以内</option>
       <option value="60">1時間以内</option>
       <option value="120">2時間以内</option>
@@ -564,6 +572,13 @@
   <div id="message"></div>
   
   <p>動画一覧</p>
+
+  <!-- トグルスイッチ -->
+  <div class="view-toggle">
+    <span>テーブル</span>
+    <input type="checkbox" id="toggleView">
+    <span>カード</span>
+  </div>
   
   <details class="data-transfer">
     <summary>視聴☑データ移行</summary>
@@ -856,7 +871,21 @@ function render(){
   updatePlaylistCount();
 
 }
-  
+
+// トグルスイッチ
+function getViewMode(){
+  const toggle = document.getElementById("toggleView");
+
+  // ユーザー操作優先
+  if(toggle.dataset.manual === "true"){
+    return toggle.checked ? "card" : "table";
+  }
+
+  // 初期は自動
+  return window.innerWidth <= 600 ? "card" : "table";
+}
+
+// メーセージボックス
 function showMessage(text, type="success"){
     const el = document.getElementById("message");
   
@@ -876,8 +905,6 @@ function showMessage(text, type="success"){
       el.classList.remove("show");
     }, 2000);
 }
-
-
 
 // -------------------- 初期読み込み --------------------
 
@@ -1012,6 +1039,7 @@ fetch(url)
     
       render();
     });
+    
     // スクロール
     document.getElementById("toTop").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
     document.getElementById("toBottom").onclick=()=>window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
@@ -1035,8 +1063,14 @@ fetch(url)
     
     document.getElementById("importBtn").onclick = () => {
     document.getElementById("importFile").click();
-};
+  };
 
+  // トグルスイッチ
+  document.getElementById("toggleView").addEventListener("change", (e)=>{
+    e.target.dataset.manual = "true"; // 手動フラグ
+    render();
+  });
+  
   document.getElementById("importFile").addEventListener("change", e => {
     const file = e.target.files[0];
     if(!file) return;
