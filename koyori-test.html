@@ -323,7 +323,15 @@
     .controls-left > * {
       width: 100%;
     }
-  
+    
+    /* ✅ ボタン専用レイアウト */
+    .btn-group {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
     /* ボタンは横いっぱい */
     #checkAll,
     #uncheckAll,
@@ -346,7 +354,7 @@
   
     /* ---------- カード ---------- */
     .card {
-      font-size: 20px;
+      font-size: 40px;
       padding: 16px;
       margin-bottom: 16px;
     }
@@ -463,6 +471,12 @@
   <button id="playlistAll">全て✔</button>
   <button id="playlistClear">全て解除</button>
 </details>
+
+<div class="btn-group">
+  <button id="checkAll">表示を全部☑</button>
+  <button id="uncheckAll">表示☑を全部解除</button>
+  <button id="resetAll">条件リセット</button>
+</div>
 
 <div class="list-header">
   
