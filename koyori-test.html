@@ -134,6 +134,7 @@
   
   .controls-right {
     text-align: right;
+    margin-top: 10px;
   }
   
   /* ---------- stats ---------- */
@@ -378,6 +379,12 @@
     .card div {
       margin-bottom: 6px;
     }
+
+    /* ---------- 再生リスト ---------- */
+    #playlistFilterArea {
+      font-size: 20px;
+    }
+
   
     /* ---------- チェックボックス ---------- */
     input[type="checkbox"] {
@@ -435,7 +442,8 @@
     <select id="sort">
       <option value="new">公開日（新→旧）</option>
       <option value="old">公開日（旧→新）</option>
-      <option value="title">タイトル順</option>
+      <option value="title_asc">タイトル（昇順）</option>
+      <option value="title_desc">タイトル（降順）</option>
       <option value="long">時間（長い順）</option>
       <option value="short">時間（短い順）</option>
     </select>
@@ -480,10 +488,11 @@
 <details id="playlistBox">
   <summary>再生リスト選択</summary>
   <input type="text" id="playlistSearch" placeholder="再生リスト検索">
-  <div id="playlistFilterArea"></div>
 
   <button id="playlistAll">全て✔</button>
   <button id="playlistClear">全て解除</button>
+
+  <div id="playlistFilterArea"></div>
 </details>
 
 <div class="list-header">
@@ -769,6 +778,8 @@ function render(){
   // ソート
   if(sort==="new") filtered.sort((a,b)=>new Date(b.publishedAt)-new Date(a.publishedAt));
   if(sort==="old") filtered.sort((a,b)=>new Date(a.publishedAt)-new Date(b.publishedAt));
+  if(sort==="title_asc") filtered.sort((a,b)=>a.title.localeCompare(b.title));
+  if(sort==="title_desc") filtered.sort((a,b)=>b.title.localeCompare(a.title));
   if(sort==="long") filtered.sort((a,b)=>b.durationSec-a.durationSec);
   if(sort==="short") filtered.sort((a,b)=>a.durationSec-b.durationSec);
  
