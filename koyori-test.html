@@ -458,9 +458,12 @@
   /* トグルスイッチ */
   .view-toggle {
     display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
+    gap: 10px;
+    font-size: 14px;
+  }
+  
+  .view-toggle input {
+    margin-right: 4px;
   }
   
   @media (max-width: 1000px) {
@@ -575,9 +578,15 @@
 
   <!-- トグルスイッチ -->
   <div class="view-toggle">
-    <span>テーブル</span>
-    <input type="checkbox" id="toggleView">
-    <span>カード</span>
+    <label>
+      <input type="radio" name="view" value="table" checked>
+      テーブル
+    </label>
+  
+    <label>
+      <input type="radio" name="view" value="card">
+      カード
+    </label>
   </div>
   
   <details class="data-transfer">
@@ -613,13 +622,8 @@ let data = [];
 
 // PCとスマホの判定
 function getViewMode(){
-  const mode = document.getElementById("viewMode").value;
-
-  if(mode === "table") return "table";
-  if(mode === "card") return "card";
-
-  // auto
-  return window.innerWidth <= 800 ? "card" : "table";
+  const selected = document.querySelector('input[name="view"]:checked');
+  return selected ? selected.value : "table";
 }
   
 // 日付
@@ -747,6 +751,12 @@ function updatePlaylistCount(){
 function render(){
   const tbody = document.querySelector("#list tbody");
   tbody.innerHTML = ""; // ←これも必要！
+
+  const playlistCheckboxes = document.querySelectorAll("#playlistFilterArea input");
+
+  if(playlistCheckboxes.length === 0){
+    return; // まだロード中なので描画しない
+  }
   
   const keyword = document.getElementById("search").value.toLowerCase();
   const status = document.getElementById("filterStatus").value;
@@ -948,6 +958,9 @@ fetch(url)
     // ✅ イベント
 
     document.getElementById("viewMode").addEventListener("change", render); //PCとスマホの表示
+    document.querySelectorAll('input[name="view"]').forEach(el=>{
+      el.addEventListener("change", render);
+    });
     document.getElementById("search").addEventListener("input", render);
     document.getElementById("filterStatus").addEventListener("change", render);
     document.getElementById("sort").addEventListener("change", render);
