@@ -136,7 +136,27 @@
 
   /* スマホ表示 */
   @media (max-width: 1000px) {
+    
+    h1 {
+        font-size: 24px;
+      }
+    
+      .card .title {
+        font-size: 18px;
+        line-height: 1.5;
+      }
 
+    body {
+        /*max-width: 520px; */
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 18px;
+        box-sizing: border-box;
+      }
+      main, #controls, #stats, table {
+        width: 100%;
+      }
+    
     #stats {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -144,30 +164,15 @@
     }  
     .stat-box {
       min-width: auto;
-      padding: 14px 18px;
+      padding: 16px;
     }
-    
-    body {
-        /*max-width: 520px; */
-        width: 100%;
-        margin: 0 auto;
-        padding: 0 12px;
-        box-sizing: border-box;
-      }
-      main, #controls, #stats, table {
-        width: 100%;
-      }
-  }
-
-  /* スマホ表示の時のフォントサイズ変更*/
-  @media (max-width: 1000px) {
 
     .stat-box .value {
-      font-size: 22px;
+      font-size: 26px;
     }
   
     .stat-box .label {
-      font-size: 12px;
+      font-size: 13px;
     }
   
   }
@@ -434,8 +439,13 @@
       line-height: 1.4;
     }
     .card {
-      font-size: 14px;
+      font-size: 16px;
       padding: 12px;
+    }
+    @media (max-width: 1000px) {
+      input[type="checkbox"] {
+        transform: scale(1.5);
+      }
     }
   }
 
@@ -498,6 +508,16 @@
       font-size: 14px;
       justify-content: flex-end;
     }
+  }
+
+  .card {
+    position: relative;
+  }
+  
+  .card .check-area {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
   }
 
   /* タイトル */
@@ -868,11 +888,15 @@ function render(){
             <div>⏱ ${formatDuration(item.durationSec)}</div>
   
             <div>
-              ☑ <input type="checkbox" ${checked?"checked":""}>
+              視聴済み <input type="checkbox" ${checked?"checked":""}>
             </div>
   
             <div>
-              🎵 ${item.playlistName}
+            🎵 ${
+              item.playlistUrl
+                ? `${item.playlistUrl}${item.playlistName}</a>`
+                : item.playlistName
+              }
             </div>
   
           </div>
