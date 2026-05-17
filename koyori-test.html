@@ -451,6 +451,9 @@
       font-size: 16px;
       padding: 10px;
     }    
+    body {
+      font-size: 17px;
+    }
     .controls-left > * {
       width: calc(50% - 4px);
     }
@@ -480,6 +483,14 @@
       font-size: 14px;
       justify-content: flex-end;
     }
+  }
+
+  /* タイトル */
+  h1 {
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* ←はみ出し対策 */
   }
   
 </style>
@@ -892,19 +903,6 @@ function render(){
 
 }
 
-// トグルスイッチ
-function getViewMode(){
-  const toggle = document.getElementById("toggleView");
-
-  // ユーザー操作優先
-  if(toggle.dataset.manual === "true"){
-    return toggle.checked ? "card" : "table";
-  }
-
-  // 初期は自動
-  return window.innerWidth <= 800 ? "card" : "table";
-}
-
 // メーセージボックス
 function showMessage(text, type="success"){
     const el = document.getElementById("message");
@@ -1087,12 +1085,6 @@ fetch(url)
     document.getElementById("importBtn").onclick = () => {
     document.getElementById("importFile").click();
   };
-
-  // トグルスイッチ
-  document.getElementById("toggleView").addEventListener("change", (e)=>{
-    e.target.dataset.manual = "true"; // 手動フラグ
-    render();
-  });
   
   document.getElementById("importFile").addEventListener("change", e => {
     const file = e.target.files[0];
