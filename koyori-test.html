@@ -130,12 +130,21 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-    }
-  
+    }  
     .stat-box {
       min-width: auto;
     }
-  
+    
+    body {
+        max-width: 520px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 12px;
+        box-sizing: border-box;
+      }
+      main, #controls, #stats, table {
+        width: 100%;
+      }
   }
 
   /* スマホ表示の時のフォントサイズ変更*/
