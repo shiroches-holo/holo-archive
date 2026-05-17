@@ -99,14 +99,14 @@
     top: 0;
     background: #e3e8ef;
   }
-  
+
   .time-cell {    
     text-align: right;
     white-space: nowrap;
     font-variant-numeric: tabular-nums; /* ←数字揃う */
   }
 
-  #list td:last-child {
+  #list tbody tr td:last-child:not([colspan]) {
     max-width: 140px;
     overflow: hidden;
     text-overflow: ellipsis;
