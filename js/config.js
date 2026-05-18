@@ -3,5 +3,5 @@ const config = {
   color1: "#fe68ad",
   color2: "#f09cc0",
   color3: "#ffacd3",
-  api: "https://script.google.com/macros/s/～/exec"
+  api: "https://script.google.com/macros/s/AKfycby35nCN7uhqkTvMhTmb52O33xHxrpHEYkjXl0h8sCv34gxUenTfXbrAwzCs86kb05AR0w/exec"
 };
