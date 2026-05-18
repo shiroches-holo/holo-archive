@@ -256,6 +256,11 @@ tr:hover {
   background: #fafafa;
 }
 
+#playlistFilterArea label {
+  display: block;
+  margin-bottom: 4px;
+}
+
 /* 再生リスト選択を展開時*/
 #playlistBox[open] #playlistFilterArea {
   max-height: 1000px; /* 表示の制限実質なし */
