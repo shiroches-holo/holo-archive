@@ -1,6 +1,6 @@
 const url = "https://script.google.com/macros/s/AKfycby35nCN7uhqkTvMhTmb52O33xHxrpHEYkjXl0h8sCv34gxUenTfXbrAwzCs86kb05AR0w/exec";
 
-let data = [];
+let window.data = [];
 
 // -------------------- 共通関数 --------------------
 
@@ -41,7 +41,7 @@ function showMessage(text, type="success"){
 fetch(url)
   .then(r=>r.json())
   .then(json=>{
-    data = json;
+    window.data = json;
 
     autoViewMode(); // 初期表示自動判定
     
