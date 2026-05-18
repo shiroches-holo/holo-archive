@@ -61,18 +61,20 @@ fetch(url)
 
     set.forEach(p => {
       const label = document.createElement("label");
-
+    
       label.innerHTML = `
         <input type="checkbox" value="${p}" checked>
         ${p} (${playlistCount[p]})
       `;
-
+    
+      // ✅ イベントだけ
       label.querySelector("input")
         .addEventListener("change", render);
-
+    
+      // ✅ DOM追加は外
       area.appendChild(label);
     });
-
+    
     // ✅ 最後に1回だけ
     render();
   })
