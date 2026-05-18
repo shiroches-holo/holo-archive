@@ -179,10 +179,14 @@ fetch(url)
       document.querySelectorAll("#playlistFilterArea input").forEach(cb=>{
         cb.checked = true;
       });
-    
+
+      /*
       document.querySelector("#playlistBox summary").textContent =
         `再生リスト選択 (${set.size})`;
-    
+      */
+      
+      updatePlaylistCount();
+      
       render();
     });
     
