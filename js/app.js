@@ -164,8 +164,14 @@ document.getElementById("resetAll").addEventListener("click", ()=>{
   document.getElementById("sort").value = "new";
 
   // 日付
-  document.getElementById("dateFrom").value = "";
-  document.getElementById("dateTo").value = "";
+  const dateFrom = document.getElementById("dateFrom");
+  const dateTo   = document.getElementById("dateTo");
+
+  dateFrom.value = "";
+  dateTo.value = "";
+
+  dateFrom.type = "text";
+  dateTo.type = "text";
 
   // 時間
   document.getElementById("durationLimit").value = "";
