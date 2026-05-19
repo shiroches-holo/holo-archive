@@ -108,6 +108,7 @@ table {
   overflow: hidden;
   box-shadow: 0 6px 16px rgba(255,150,180,0.25);
   width: 100%; 
+  order-collapse: collapse;
 }
 
 th, td {
