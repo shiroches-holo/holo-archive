@@ -19,7 +19,7 @@ header {
   );    
   box-sizing: border-box;
   border-bottom: 2px solid rgba(255,255,255,0.5);
-  padding: 12px;
+  padding: 12px 14px;
   margin-bottom: 15px;
   box-shadow: 0 4px 12px rgba(254,104,173,0.3);
   position: relative;
