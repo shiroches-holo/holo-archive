@@ -4,6 +4,7 @@
 
 body {
   background: #fff6f9;
+  box-sizing: border-box; 
 }
 
 /* ---------- ヘッダー ---------- */
@@ -555,10 +556,11 @@ tr:hover {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
-
+    
     #list {
-      min-width: 600px;
+      min-width: auto;
     }
+
   }
 
 }
