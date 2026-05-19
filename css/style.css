@@ -385,7 +385,7 @@ tr:hover {
   /* ---------- レイアウト ---------- */
   body {
     width: 100%;
-    margin: 0;
+    margin: 6px;
     padding: 6px;
     box-sizing: border-box;
     font-size: 14px;
