@@ -572,6 +572,16 @@ tr:hover {
     justify-content: center;
   }
 
+  /* スマホで date input が空欄に見える対策 */
+  input[type="date"] {
+    position: relative;
+  }
+
+  .range-group input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
   /* ✅ ④ リセットは単独行 */
   .btn-group {
     grid-column: span 3;
