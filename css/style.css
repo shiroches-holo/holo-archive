@@ -697,8 +697,6 @@ tr:hover {
         max-height: 70vh;  /* 少し広げる */
      }
 
-   
-
     
   /* ---------- 横(テーブル) ---------- */
   @media (max-width: 600px) {
@@ -707,9 +705,15 @@ tr:hover {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
-    
+
     #list {
       min-width: auto;
+    }
+
+    #list th,
+    #list td {
+      font-size: 8px;
+      padding: 6px 4px;
     }
 
   }
