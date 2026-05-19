@@ -564,6 +564,14 @@ tr:hover {
   input[type="checkbox"] {
     transform: scale(1.5);
   }
+   
+  header,
+  #controls,
+  .card {
+    margin: 0 4px;
+  }
+
+
  
   /* ---------- 横(テーブル) ---------- */
   @media (max-width: 600px) {
