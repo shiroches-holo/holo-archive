@@ -95,17 +95,132 @@
 		    <button id="uncheckAll">全☑解除</button>
 		  </div>
 		</div>
+		
+		<div class="playlist-header">
+			<details id="playlistBox">
+				<summary>再生リスト選択</summary>
+				<input type="text" id="playlistSearch" placeholder="再生リスト検索">
 
-		<details id="playlistBox">
-		  <summary>再生リスト選択</summary>
-		  <input type="text" id="playlistSearch" placeholder="再生リスト検索">
+				<button id="playlistAll">全て✔</button>
+				<button id="playlistClear">全て解除</button>
 
-		  <button id="playlistAll">全て✔</button>
-		  <button id="playlistClear">全て解除</button>
+				<div id="playlistFilterArea"></div>
+			</details>
+			<!-- ヘルプ［概要・使い方・バージョン情報・制作者］ -->
+			<button id="helpBtn">❓ヘルプ</button>
+			<div id="helpModal">
+				<div class="modal-content">
 
-		  <div id="playlistFilterArea"></div>
-		</details>
+					<div class="tab-buttons">
+						<button data-tab="about">概要</button>
+						<button data-tab="howto">使い方</button>
+						<button data-tab="version">バージョン</button>
+						<button data-tab="author">制作者</button>
+					</div>
 
+					<div class="tab-content">
+
+						<div class="tab-panel" id="about">
+							<h3>概要</h3>
+							<p>
+								ホロライブ所属メンバーの配信アーカイブを管理するための非公式ツールです。<br>
+								視聴済みチェックや検索・並び替え・フィルタ機能で効率よく管理できます。<br>
+								動画時間や視聴時間の表示も行っており、ご自身の視聴状況を確認することが可能となっています。<br>
+								<br>
+								<p style="margin-top:12px;">
+									<strong>※注意</strong><br>
+									データはYouTubeのライブ一覧をもとに取得しています。<br>
+									一部、配信以外の動画（オリ曲・歌・Shortsなど）が含まれる場合があります。<br>
+									配信時間のみを知りたい場合は、検索機能や再生リストでの絞り込みを行ってください。
+								</p>
+							</p>
+						</div>
+						<div class="tab-panel" id="howto" style="display:none;">
+							<h3>使い方</h3>
+							<ul>
+								<li><strong>検索：</strong>タイトルで絞り込み</li>
+								<li><strong>並び替え(昇順・降順)：</strong>公開日・タイトル・動画時間</li>
+								<li><strong>時間フィルタ：</strong>動画時間で絞り込み</li>
+								<li><strong>再生リスト：</strong>フィルタ・検索対応</li>
+								<li><strong>視聴管理：</strong>チェックで記録</li>
+								<li><strong>一括操作：</strong>表示動画をまとめてチェック・解除</li>
+								<li><strong>データ移行：</strong>視聴状態の保存・復元</li>
+								<li><strong>データ移行：</strong>視聴状態の保存・復元</li>
+								<p style="margin-top:12px;">
+									<strong>※視聴データについて</strong><br>
+									視聴チェックのデータは、ご利用中のブラウザごとに保存されます。<br>
+									別の端末やブラウザで利用する場合はデータが引き継がれません。<br><br>
+
+									エクスポート / インポート機能を利用することで、  
+									視聴データを他の環境へ移行することができます。
+								</p>
+								<li>
+									<strong>リンク：</strong>
+									動画タイトル・再生リスト名をクリックすると、
+									YouTubeの該当ページを別タブで開きます
+								</li>
+							</ul>
+						</div>
+						<div class="tab-panel" id="version" style="display:none;">
+							<h3>バージョン</h3>
+							<p id="versionText"></p>
+							<h4>更新履歴</h4>
+							<div class="version-item">
+								<div class="version-header">
+									<strong>v1.1.0</strong>
+									<span class="date">（2026/05/19）</span>
+								</div>
+
+								<ul class="version-list">
+									<li>スマホUI追加</li>
+									<li>全体のUI改善</li>
+								</ul>
+							</div>
+
+							<div class="version-item">
+								<div class="version-header">
+									<strong>v1.0.0</strong>
+									<span class="date">（2026/05/15）</span>
+								</div>
+
+								<ul class="version-list">
+									<li>初版リリース</li>
+								</ul>
+							</div>
+						</div>
+						<div class="tab-panel" id="author" style="display:none;">
+							<h3>制作者</h3>
+
+							<p>
+								<strong>白ちぇす</strong><br>
+								X（旧Twitter）: 
+								<a href="https://x.com/ches_hafu" target="_blank">
+									@ches_hafu
+								</a>
+							</p>
+							<p>
+								本ツールは個人による非公式ファンツールです。<br>
+								不具合報告・ご要望などがありましたら、上記XアカウントへのリプライまたはDMにてご連絡ください。
+							</p>
+							</p>
+								<strong>▼ 不具合報告の際のお願い</strong><br>
+								以下の内容を記載いただけると助かります：<br><br>
+
+								・発生している現象（例：表示が崩れる / チェックが保存されない など）<br>
+								・操作手順（どの操作をしたときに発生したか）<br>
+								・使用環境（スマホ / PC、ブラウザなど）<br>
+							</p>
+							<p>
+								※本ツールはホロライブ公式および関連団体とは一切関係ありません。
+							</p>
+						</div>
+					</div>
+
+					<button id="closeHelp">閉じる</button>
+
+				</div>
+			</div>
+		</div>
 		<div class="list-header">
 		  
 		  <div id="message"></div>
@@ -132,35 +247,6 @@
 		    <input type="file" id="importFile" style="display:none">
 		    <div class="notice">
 		        ※データは端末のブラウザ毎に保存されます
-		    </div>
-		    <button id="helpBtn">❓ヘルプ</button>
-		    <div id="helpModal">
-		      <div class="modal-content">
-		        <h2>ヘルプ</h2>
-		    
-		        <h3>このツールについて</h3>
-		        <p>
-		          博衣こよりの配信アーカイブを視聴管理するための非公式ツールです。
-		        </p>
-		    
-		        <h3>使い方</h3>
-		        <ul>
-		          <li>タイトル検索で絞り込み</li>
-		          <li>再生リストでフィルタ</li>
-		          <li>チェックで視聴管理</li>
-		        </ul>
-		    
-		        <h3>バージョン</h3>
-		        <p>v1.2.0</p>
-		    
-		        <h3>更新履歴</h3>
-		        <ul>
-		          <li>v1.2.0 UI改善・バグ修正</li>
-		          <li>v1.1.0 カード表示追加</li>
-		        </ul>
-		    
-		        <button id="closeHelp">閉じる</button>
-		      </div>
 		    </div>
 		  </details>
 		</div>
