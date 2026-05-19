@@ -1,3 +1,6 @@
+// config.js
+const APP_VERSION = "1.1.0";
+
 const config = {
   name: "博衣こより",
   color1: "#fe68ad",
