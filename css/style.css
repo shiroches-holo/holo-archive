@@ -389,8 +389,16 @@ tr:hover {
     font-size: 14px;
   }
 
-   main {
-    padding: 10px;
+   .main {
+  padding: 10px;
+  }
+
+  header,
+  #controls,
+  .card,
+  #playlistBox {
+    margin-left: 4px;
+    margin-right: 4px;
   }
 
   #list tbody tr td:last-child:not([colspan]) {
@@ -564,15 +572,7 @@ tr:hover {
   input[type="checkbox"] {
     transform: scale(1.5);
   }
-   
-  header,
-  #controls,
-  .card {
-    margin: 0 4px;
-  }
-
-
- 
+    
   /* ---------- 横(テーブル) ---------- */
   @media (max-width: 600px) {
 
