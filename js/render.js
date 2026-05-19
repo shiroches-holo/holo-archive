@@ -193,7 +193,7 @@ function render(){
 
             <!-- サムネ -->
             <div class="thumb">
-                <img src="https://img.youtube.com/vi/${item.videoId}/mqdefault.jpg">
+                <img src="https://img.youtube.com/vi/${item.videoId}/mqdefault.jpg" loading="lazy">
             </div>
             
             <div class="card-content">
