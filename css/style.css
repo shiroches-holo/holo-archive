@@ -95,7 +95,7 @@ h1 {
   to { transform: rotate(360deg); }
 }
 
-/* ---------- テーブル ---------- */
+/* ---------- 横(テーブル) ---------- */
 table {
   background: white;
   border-radius: 10px;
@@ -107,7 +107,7 @@ table {
 th, td {
   font-size: 15px;
   border: 1px solid black;
-  padding: 8px 10px;
+  padding: 8px 8px;
 }
 
 thead th {
@@ -122,11 +122,10 @@ thead th {
   font-variant-numeric: tabular-nums; /* ←数字揃う */
 }
 
-#list tbody tr td:last-child:not([colspan]) {
-  /* max-width: 140px; */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+#list th:nth-child(5),
+#list td:nth-child(5) {
+  white-space: normal;
+  word-break: break-word;
 }
 
 .check-cell {
@@ -214,7 +213,7 @@ thead th {
   height: 4px;
 }
 
-/* ---------- カード ---------- */
+/* ---------- 縦(カード) ---------- */
 .card {
   background: white;
   border-radius: 10px;
@@ -512,7 +511,7 @@ tr:hover {
     min-width: 0;
   }
 
-  /* ---------- カード ---------- */
+  /* ---------- 縦(カード) ---------- */
   .card {
     font-size: 14px;
     padding: 14px;
@@ -547,6 +546,19 @@ tr:hover {
   /* ---------- チェックボックス ---------- */
   input[type="checkbox"] {
     transform: scale(1.5);
+  }
+ 
+  /* ---------- 横(テーブル) ---------- */
+  @media (max-width: 500px) {
+
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #list {
+      min-width: 600px;
+    }
   }
 
 }
