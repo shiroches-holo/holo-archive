@@ -515,7 +515,10 @@ tr:hover {
   .card {
     font-size: 14px;
     padding: 14px;
-    margin-bottom: 10px;
+    margin-bottom: 10px;    
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .card .playlist-row {
@@ -523,11 +526,14 @@ tr:hover {
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+    min-width: 0; /* はみ出し防止 */
   }
 
   .card .title {
     font-size: 16px;
-    line-height: 1.4;
+    line-height: 1.4;     
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .card div {
