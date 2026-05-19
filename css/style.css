@@ -142,9 +142,7 @@ thead th {
   z-index: 10;
   background: white;
   border-radius: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px;
+  padding: 6px;
   margin-bottom: 15px;
   box-shadow: 0 4px 12px rgba(255,160,180,0.2);
 
