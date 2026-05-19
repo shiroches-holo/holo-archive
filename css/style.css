@@ -5,6 +5,9 @@
 body {
   background: #fff6f9;  
 }
+.main {
+  padding: 8px;
+}
 
 /* ---------- ヘッダー ---------- */
 header {
@@ -395,7 +398,7 @@ tr:hover {
    }
   
   .main {
-    padding: 6px;
+    padding: 10px;
   }
 
   #list tbody tr td:last-child:not([colspan]) {
