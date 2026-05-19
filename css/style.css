@@ -656,6 +656,37 @@ tr:hover {
   input[type="checkbox"] {
     transform: scale(1.5);
   }
+
+   /* ヘルプ */
+   #helpModal .modal-content {
+       width: 92%;        /* ←ほぼ全幅🔥 */
+       max-width: none;   /* 制限解除 */
+       padding: 16px;
+     }
+   
+   .tab-buttons {
+       flex-wrap: wrap;          /* 折り返し */
+       gap: 6px;
+     }
+   
+     .tab-buttons button {
+       flex: 1 1 45%;           /* 2列表示 */
+       font-size: 13px;
+       padding: 8px;
+     }
+   
+     .tab-panel p, 
+     .tab-panel li {
+       font-size: 14px;
+       line-height: 1.6;
+     }
+   
+    　.tab-content {
+        max-height: 70vh;  /* 少し広げる */
+     }
+
+   }
+
     
   /* ---------- 横(テーブル) ---------- */
   @media (max-width: 600px) {
