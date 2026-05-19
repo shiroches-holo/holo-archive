@@ -532,6 +532,7 @@ tr:hover {
   .card .title {
     font-size: 16px;
     line-height: 1.4;     
+    width: 100%;
     overflow-wrap: break-word;
     word-break: break-word;
   }
