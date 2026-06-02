@@ -92,9 +92,11 @@ document.getElementById("search").addEventListener("input", ()=>{
   const keyword = document.getElementById("search").value;
 
   /* GAの分析用*/
+  if (typeof gtag === "function") {
   gtag('event', 'search', {
-    keyword: keyword
-  });
+      keyword: keyword
+    });
+  }
 
   render();
 });
@@ -103,9 +105,11 @@ document.getElementById("filterStatus").addEventListener("change", render);
 document.getElementById("sort").addEventListener("change", render);
 document.getElementById("durationLimit").addEventListener("change", ()=>{
   /* GAの分析用*/
+  if (typeof gtag === "function") {
   gtag('event', 'filter', {
-    type: 'duration'
-  });
+      type: 'duration'
+    });
+  }
 
   render();
 });
@@ -213,7 +217,12 @@ document.getElementById("resetAll").addEventListener("click", ()=>{
   updatePlaylistCount();
 
   /* GAの分析用*/
-  gtag('event', 'reset_filter');
+  if (typeof gtag === "function") {
+  gtag('event', 'check_video', {
+      video_id: item.videoId,
+      status: cb.checked ? "watched" : "unwatched"
+    });
+  }
   
   render();
 });
