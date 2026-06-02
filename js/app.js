@@ -86,7 +86,17 @@ fetch(url)
 document.querySelectorAll('input[name="view"]').forEach(el=>{
   el.addEventListener("change", render);
 });
-document.getElementById("search").addEventListener("input", render);
+document.getElementById("search").addEventListener("input", ()=>{
+  const keyword = document.getElementById("search").value;
+
+  /* GAの分析用*/
+  gtag('event', 'search', {
+    keyword: keyword
+  });
+
+  render();
+});
+
 document.getElementById("filterStatus").addEventListener("change", render);
 document.getElementById("sort").addEventListener("change", render);
 document.getElementById("durationLimit").addEventListener("change", render);
