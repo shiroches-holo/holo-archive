@@ -88,15 +88,16 @@ document.querySelectorAll('input[name="view"]').forEach(el=>{
 });
 
 // 検索
-document.getElementById("search").addEventListener("input", debounce(()=>{
+document.getElementById("search").addEventListener("input", ()=>{
   const keyword = document.getElementById("search").value;
 
-  if(keyword.length >= 2){
-    gtag('event', 'search', { keyword });
-  }
+  /* GAの分析用*/
+  gtag('event', 'search', {
+    keyword: keyword
+  });
 
-  render(); // ← 直接実行
-}, 300));
+  render();
+});
 
 document.getElementById("filterStatus").addEventListener("change", render);
 document.getElementById("sort").addEventListener("change", render);
