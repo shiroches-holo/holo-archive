@@ -94,7 +94,7 @@ document.getElementById("search").addEventListener("input", ()=>{
     keyword: keyword
   });
 
-  render();
+  setTimeout(render, 50);
 });
 
 document.getElementById("filterStatus").addEventListener("change", render);
