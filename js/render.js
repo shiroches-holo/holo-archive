@@ -259,10 +259,12 @@ function render(){
       localStorage.setItem(item.videoId, cb.checked);
 
       /* GAの分析用 */
-      gtag('event', 'check_video', {
-        video_id: item.videoId,
-        status: cb.checked ? "watched" : "unwatched"
-      });
+      if (typeof gtag === "function") {
+        gtag('event', 'check_video', {
+          video_id: item.videoId,
+          status: cb.checked ? "watched" : "unwatched"
+        });
+      }
 
       render();
     });
