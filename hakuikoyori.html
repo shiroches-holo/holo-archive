@@ -10,6 +10,17 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+		gtag('event', 'check_video', {
+		  video_id: item.videoId,
+		  status: cb.checked ? "watched" : "unwatched"
+		});
+		gtag('event', 'search', {
+		  keyword: keyword
+		});
+		gtag('event', 'filter', {
+		  type: 'duration'
+		});
+		gtag('event', 'reset_filter');
 
     gtag('config', 'G-L57WD1Z8SS');
   </script>
