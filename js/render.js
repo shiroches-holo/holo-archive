@@ -257,6 +257,13 @@ function render(){
     const cb = tr.querySelector("input");
     cb.addEventListener("change", ()=>{
       localStorage.setItem(item.videoId, cb.checked);
+
+      /* GAの分析用 */
+      gtag('event', 'check_video', {
+        video_id: item.videoId,
+        status: cb.checked ? "watched" : "unwatched"
+      });
+
       render();
     });
   
