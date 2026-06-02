@@ -86,16 +86,17 @@ fetch(url)
 document.querySelectorAll('input[name="view"]').forEach(el=>{
   el.addEventListener("change", render);
 });
-document.getElementById("search").addEventListener("input", ()=>{
+
+// 検索
+document.getElementById("search").addEventListener("input", debounce(()=>{
   const keyword = document.getElementById("search").value;
 
-  /* GAの分析用*/
-  gtag('event', 'search', {
-    keyword: keyword
-  });
+  if(keyword.length >= 2){
+    gtag('event', 'search', { keyword });
+  }
 
-  render();
-});
+  render(); // ← 直接実行
+}, 300));
 
 document.getElementById("filterStatus").addEventListener("change", render);
 document.getElementById("sort").addEventListener("change", render);
