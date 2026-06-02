@@ -99,7 +99,14 @@ document.getElementById("search").addEventListener("input", ()=>{
 
 document.getElementById("filterStatus").addEventListener("change", render);
 document.getElementById("sort").addEventListener("change", render);
-document.getElementById("durationLimit").addEventListener("change", render);
+document.getElementById("durationLimit").addEventListener("change", ()=>{
+  /* GAの分析用*/
+  gtag('event', 'filter', {
+    type: 'duration'
+  });
+
+  render();
+});
 document.getElementById("dateFrom").addEventListener("change", render);
 document.getElementById("dateTo").addEventListener("change", render);
 
@@ -202,6 +209,9 @@ document.getElementById("resetAll").addEventListener("click", ()=>{
   */
   
   updatePlaylistCount();
+
+  /* GAの分析用*/
+  gtag('event', 'reset_filter');
   
   render();
 });
